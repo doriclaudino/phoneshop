@@ -1,0 +1,32 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
+<p>
+    <a class="btn btn-default" href="{% url 'logistic_tracking_list' %}">Tracking Listing</a>
+</p>
+<table class="table">
+    <tr>
+        <td>ID</td>
+        <td>Link</td>
+        <td>number</td>
+        <td>slug</td>
+        <td>created_at</td>
+        <td>updated_at</td>
+        <td>description</td>
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td>{{object.pk}}</td>
+        <td>
+            <a href="{{object.get_absolute_url}}">{{object}}</a>
+        </td>
+        <td>{{ object.number }}</td>
+        <td>{{ object.slug }}</td>
+        <td>{{ object.created_at }}</td>
+        <td>{{ object.updated_at }}</td>
+        <td>{{ object.description }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="btn btn-primary" href="{% url 'logistic_tracking_create' %}">Create new Tracking</a>
+{% endblock %}

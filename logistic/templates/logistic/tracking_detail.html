@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
+<p>
+    <a class="btn btn-default" href="{% url 'logistic_tracking_list' %}">Tracking Listing</a>
+</p>
+<table class="table">
+    <tr>
+        <td>number</td>
+        <td>{{ object.number }}</td>
+    </tr>
+    <tr>
+        <td>slug</td>
+        <td>{{ object.slug }}</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>{{ object.created_at }}</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>{{ object.updated_at }}</td>
+    </tr>
+    <tr>
+        <td>description</td>
+        <td>{{ object.description }}</td>
+    </tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Tracking</a>
+
+{% endblock %}
