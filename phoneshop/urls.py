@@ -21,4 +21,5 @@ urlpatterns = i18n_patterns(
     url(r'^admin/', admin.site.urls),
     url(r'^logistic/', include('logistic.urls')),
     url(r'^catalog/', include('catalog.urls')),
+    url(r'^purchase/', include('purchase.urls')),
 )
