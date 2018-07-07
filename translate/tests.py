@@ -1,7 +1,6 @@
 from django.test import TestCase, SimpleTestCase, Client
 from django.core.urlresolvers import reverse
 from django.utils import translation
-from .views import testView
 from django.template import Template, Context
 
 # Create your tests here.
