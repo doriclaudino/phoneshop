@@ -32,3 +32,27 @@ class Brand(models.Model):
 
     def get_update_url(self):
         return reverse('catalog_brand_update', args=(self.slug,))
+
+
+# Represent the models of products
+class Model(models.Model):
+
+    # Fields
+    name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name_plural = _('Models')
+        verbose_name = _('Model')
+
+    def __str__(self):
+        return u'%s' % self.slug
+
+    def get_absolute_url(self):
+        return reverse('catalog_model_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('catalog_model_update', args=(self.slug,))

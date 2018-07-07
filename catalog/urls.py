@@ -14,3 +14,15 @@ urlpatterns = (
     url(r'^catalog/brand/update/(?P<slug>\S+)/$',
         views.BrandUpdateView.as_view(), name='catalog_brand_update'),
 )
+
+urlpatterns += (
+    # urls for Model
+    url(r'^catalog/model/$', views.ModelListView.as_view(),
+        name='catalog_model_list'),
+    url(r'^catalog/model/create/$', views.ModelCreateView.as_view(),
+        name='catalog_model_create'),
+    url(r'^catalog/model/detail/(?P<slug>\S+)/$',
+        views.ModelDetailView.as_view(), name='catalog_model_detail'),
+    url(r'^catalog/model/update/(?P<slug>\S+)/$',
+        views.ModelUpdateView.as_view(), name='catalog_model_update'),
+)
