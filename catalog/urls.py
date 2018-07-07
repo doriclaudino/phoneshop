@@ -38,3 +38,16 @@ urlpatterns += (
     url(r'^catalog/product/update/(?P<slug>\S+)/$',
         views.ProductUpdateView.as_view(), name='catalog_product_update'),
 )
+
+
+urlpatterns += (
+    # urls for ProductModel
+    url(r'^catalog/productmodel/$', views.ProductModelListView.as_view(),
+        name='catalog_productmodel_list'),
+    url(r'^catalog/productmodel/create/$',
+        views.ProductModelCreateView.as_view(), name='catalog_productmodel_create'),
+    url(r'^catalog/productmodel/detail/(?P<slug>\S+)/$',
+        views.ProductModelDetailView.as_view(), name='catalog_productmodel_detail'),
+    url(r'^catalog/productmodel/update/(?P<slug>\S+)/$',
+        views.ProductModelUpdateView.as_view(), name='catalog_productmodel_update'),
+)

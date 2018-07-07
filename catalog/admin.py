@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Brand, Model, Product
+from .models import Brand, Model, Product, ProductModel
 
 
 class BrandAdminForm(forms.ModelForm):
@@ -50,3 +50,20 @@ class ProductAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Product, ProductAdmin)
+
+
+class ProductModelAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = ProductModel
+        fields = '__all__'
+
+
+class ProductModelAdmin(admin.ModelAdmin):
+    form = ProductModelAdminForm
+    fields = ['product', 'model', 'slug', 'created_at', 'updated_at']
+    list_display = ['slug', 'product', 'model', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
+
+
+admin.site.register(ProductModel, ProductModelAdmin)

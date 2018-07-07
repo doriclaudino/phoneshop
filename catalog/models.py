@@ -86,3 +86,31 @@ class Product(models.Model):
 
     def get_update_url(self):
         return reverse('catalog_product_update', args=(self.slug,))
+
+
+class ProductModel(models.Model):
+
+    # Fields
+    slug = extension_fields.AutoSlugField(
+        populate_from=['product', 'model'], blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    objects = models.Manager()
+
+    # Relationship Fields
+    product = models.ForeignKey(Product, related_name='+')
+    model = models.ForeignKey(Model, related_name='+')
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name_plural = _('Product Models')
+        verbose_name = _('Product Model')
+
+    def __str__(self):
+        return u'%s' % self.slug
+
+    def get_absolute_url(self):
+        return reverse('catalog_productmodel_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('catalog_productmodel_update', args=(self.slug,))
