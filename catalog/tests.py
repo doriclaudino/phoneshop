@@ -1,7 +1,7 @@
 import unittest
 from django.core.urlresolvers import reverse
 from django.test import Client
-from .models import Brand, Model
+from .models import Brand, Model, Product
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -40,6 +40,15 @@ def create_model(**kwargs):
     defaults["name"] = "name"
     defaults.update(**kwargs)
     return Model.objects.create(**defaults)
+
+
+def create_product(**kwargs):
+    defaults = {}
+    defaults["name"] = "name"
+    defaults.update(**kwargs)
+    if "brand" not in defaults:
+        defaults["brand"] = create_brand()
+    return Product.objects.create(**defaults)
 
 
 class BrandViewTest(unittest.TestCase):
@@ -112,5 +121,44 @@ class ModelViewTest(unittest.TestCase):
             "name": "name",
         }
         url = reverse('catalog_model_update', args=[model.slug, ])
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+
+class ProductViewTest(unittest.TestCase):
+    '''
+    Tests for Product
+    '''
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_list_product(self):
+        url = reverse('catalog_product_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_product(self):
+        url = reverse('catalog_product_create')
+        data = {
+            "name": "name",
+            "brand": create_brand().pk,
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_detail_product(self):
+        product = create_product()
+        url = reverse('catalog_product_detail', args=[product.slug, ])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_product(self):
+        product = create_product()
+        data = {
+            "name": "name",
+            "brand": create_brand().pk,
+        }
+        url = reverse('catalog_product_update', args=[product.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)

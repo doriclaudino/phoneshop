@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import Brand, Model
-from .forms import BrandForm, ModelForm
+from .models import Brand, Model, Product
+from .forms import BrandForm, ModelForm, ProductForm
 
 
 class BrandListView(ListView):
@@ -37,3 +37,21 @@ class ModelDetailView(DetailView):
 class ModelUpdateView(UpdateView):
     model = Model
     form_class = ModelForm
+
+
+class ProductListView(ListView):
+    model = Product
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+
+
+class ProductDetailView(DetailView):
+    model = Product
+
+
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
