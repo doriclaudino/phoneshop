@@ -42,6 +42,7 @@ class Model(models.Model):
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
+    objects = models.Manager()
 
     class Meta:
         ordering = ('-pk',)
