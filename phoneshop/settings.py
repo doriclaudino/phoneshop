@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
 
-    'logistic',
-    'catalog',
+    'logistic.apps.LogisticConfig',
+    'catalog.apps.CatalogConfig',
 ]
 
 MIDDLEWARE = [
