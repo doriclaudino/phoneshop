@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-07 13:08-0400\n"
+"POT-Creation-Date: 2018-07-07 13:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: DORIVAL CLAUDINO dori.claudino@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,11 +25,11 @@ msgstr "Marcas"
 msgid "Brand"
 msgstr "Marca"
 
-#: .\catalog\models.py:48
+#: .\catalog\models.py:49
 msgid "Models"
 msgstr "Modelos"
 
-#: .\catalog\models.py:49
+#: .\catalog\models.py:50
 msgid "Model"
 msgstr "Modelo"
 
@@ -42,12 +42,12 @@ msgid "Location"
 msgstr "Localização"
 
 #: .\logistic\models.py:50
-msgid "Transportadoras"
-msgstr ""
+msgid "Carriers"
+msgstr "Transportadoras"
 
 #: .\logistic\models.py:51
-msgid "Transportadora"
-msgstr ""
+msgid "Carrier"
+msgstr "Transportadora"
 
 #: .\logistic\models.py:74
 msgid "Tracking Statuses"
@@ -69,12 +69,6 @@ msgstr "Rastreamento"
 msgid "English"
 msgstr "Ingles"
 
-#: .\phoneshop\settings.py:126 .\translate\tests.py:29
+#: .\phoneshop\settings.py:126 .\translate\tests.py:28
 msgid "Portuguese"
 msgstr "Portugues"
-
-#~ msgid "Carriers"
-#~ msgstr "Transportadoras"
-
-#~ msgid "Carrier"
-#~ msgstr "Transportadora"

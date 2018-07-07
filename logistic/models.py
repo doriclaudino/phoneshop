@@ -47,8 +47,8 @@ class Carrier(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
-        verbose_name_plural = _('Transportadoras')
-        verbose_name = _('Transportadora')
+        verbose_name_plural = _('Carriers')
+        verbose_name = _('Carrier')
 
     def __str__(self):
         return '%s' % self.slug
