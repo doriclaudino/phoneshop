@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import models as auth_models
 from django.db import models as models
 from django_extensions.db import fields as extension_fields
+from django.utils.translation import gettext_lazy as _
 
 
 class Location(models.Model):
@@ -20,6 +21,8 @@ class Location(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name_plural = _('Locations')
+        verbose_name = _('Location')
 
     def __str__(self):
         return '%s' % self.slug
@@ -44,6 +47,8 @@ class Carrier(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name_plural = _('Transportadoras')
+        verbose_name = _('Transportadora')
 
     def __str__(self):
         return '%s' % self.slug
@@ -66,6 +71,8 @@ class TrackingStatus(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name_plural = _('Tracking Statuses')
+        verbose_name = _('Tracking Status')
 
     def __str__(self):
         return '%s' % self.slug
@@ -95,6 +102,8 @@ class Tracking(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name_plural = _('Trackings')
+        verbose_name = _('Tracking')
 
     def __str__(self):
         return '%s' % self.slug

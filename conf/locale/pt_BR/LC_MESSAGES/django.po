@@ -8,19 +8,57 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-06 16:35-0400\n"
+"POT-Creation-Date: 2018-07-07 11:30-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: DORIVAL CLAUDINO dori.claudino@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: Brazillian Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: .\logistic\models.py:24
+msgid "Locations"
+msgstr "Localizações"
+
+#: .\logistic\models.py:25
+msgid "Location"
+msgstr "Localização"
+
+#: .\logistic\models.py:50
+msgid "Transportadoras"
+msgstr ""
+
+#: .\logistic\models.py:51
+msgid "Transportadora"
+msgstr ""
+
+#: .\logistic\models.py:74
+msgid "Tracking Statuses"
+msgstr "Situações de rastreamento"
+
+#: .\logistic\models.py:75
+msgid "Tracking Status"
+msgstr "Situação de rastreamento"
+
+#: .\logistic\models.py:105
+msgid "Trackings"
+msgstr "Rastreamentos"
+
+#: .\logistic\models.py:106
+msgid "Tracking"
+msgstr "Rastreamento"
 
 #: .\phoneshop\settings.py:124
 msgid "English"
 msgstr "Ingles"
 
-#: .\phoneshop\settings.py:125 .\translate\tests.py:24
+#: .\phoneshop\settings.py:125 .\translate\tests.py:29
 msgid "Portuguese"
 msgstr "Portugues"
+
+#~ msgid "Carriers"
+#~ msgstr "Transportadoras"
+
+#~ msgid "Carrier"
+#~ msgstr "Transportadora"
