@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-07 11:30-0400\n"
+"POT-Creation-Date: 2018-07-07 12:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: DORIVAL CLAUDINO dori.claudino@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: .\catalog\models.py:24
+msgid "Brands"
+msgstr "Marcas"
+
+#: .\catalog\models.py:25
+msgid "Brand"
+msgstr "Marca"
 
 #: .\logistic\models.py:24
 msgid "Locations"
@@ -49,11 +57,11 @@ msgstr "Rastreamentos"
 msgid "Tracking"
 msgstr "Rastreamento"
 
-#: .\phoneshop\settings.py:124
+#: .\phoneshop\settings.py:125
 msgid "English"
 msgstr "Ingles"
 
-#: .\phoneshop\settings.py:125 .\translate\tests.py:29
+#: .\phoneshop\settings.py:126 .\translate\tests.py:29
 msgid "Portuguese"
 msgstr "Portugues"
 
