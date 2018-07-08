@@ -8,6 +8,7 @@ from django.contrib.auth import models as auth_models
 from django.db import models as models
 from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
+from logistic.models import Tracking
 
 
 class Supplier(models.Model):
@@ -57,3 +58,33 @@ class PurchaseOrderStatus(models.Model):
 
     def get_update_url(self):
         return reverse('purchase_purchaseorderstatus_update', args=(self.slug,))
+
+
+class PurchaseOrder(models.Model):
+
+    # Fields
+    details = models.TextField(max_length=500, blank=True)
+    slug = extension_fields.AutoSlugField(
+        populate_from=['supplier', 'tracking'], blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    objects = models.Manager()
+
+    # Relationship Fields
+    supplier = models.ForeignKey(Supplier, related_name='+')
+    status = models.ForeignKey(PurchaseOrderStatus, related_name='+')
+    tracking = models.ForeignKey(Tracking, related_name='+', blank=True)
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name_plural = _('Purchase Orders')
+        verbose_name = _('Purchase Order')
+
+    def __str__(self):
+        return u'%s' % self.slug
+
+    def get_absolute_url(self):
+        return reverse('purchase_purchaseorder_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('purchase_purchaseorder_update', args=(self.slug,))

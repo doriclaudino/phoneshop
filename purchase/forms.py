@@ -1,5 +1,5 @@
 from django import forms
-from .models import Supplier, PurchaseOrderStatus
+from .models import Supplier, PurchaseOrderStatus, PurchaseOrder
 
 
 class SupplierForm(forms.ModelForm):
@@ -14,3 +14,7 @@ class PurchaseOrderStatusForm(forms.ModelForm):
         fields = ['name']
 
 
+class PurchaseOrderForm(forms.ModelForm):
+    class Meta:
+        model = PurchaseOrder
+        fields = ['details', 'supplier', 'status', 'tracking']
