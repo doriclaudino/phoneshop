@@ -19,7 +19,7 @@ class Supplier(models.Model):
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
-    website = models.TextField(max_length=100)
+    website = models.CharField(max_length=100)
     objects = models.Manager()
 
     class Meta:
@@ -98,8 +98,9 @@ class PurchaseOrderItem(models.Model):
         populate_from=['product', 'order', 'quantity', 'price'], blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
-    quantity = models.IntegerField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, default=100.00)
     objects = models.Manager()
 
     # Relationship Fields
