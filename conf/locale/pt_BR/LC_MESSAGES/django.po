@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-07 15:43-0400\n"
+"POT-Creation-Date: 2018-07-08 13:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: DORIVAL CLAUDINO dori.claudino@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,10 +89,82 @@ msgstr "Rastreamentos"
 msgid "Tracking"
 msgstr "Rastreamento"
 
-#: .\phoneshop\settings.py:125
+#: .\phoneshop\settings.py:127
 msgid "English"
 msgstr "Ingles"
 
-#: .\phoneshop\settings.py:126 .\translate\tests.py:28
+#: .\phoneshop\settings.py:128 .\translate\tests.py:28
 msgid "Portuguese"
 msgstr "Portugues"
+
+#: .\purchase\apps.py:7
+msgid "Purchase"
+msgstr "Compra"
+
+#: .\purchase\models.py:27
+msgid "Suppliers"
+msgstr "Fornecedores"
+
+#: .\purchase\models.py:28
+msgid "Supplier"
+msgstr "Fornecedor"
+
+#: .\purchase\models.py:51
+msgid "Purchase Order Statuses"
+msgstr "Situações das ordem de compra"
+
+#: .\purchase\models.py:52
+msgid "Purchase Order Status"
+msgstr "Situação da ordem de compra"
+
+#: .\purchase\models.py:81
+msgid "Purchase Orders"
+msgstr "Ordens de compra"
+
+#: .\purchase\models.py:82
+msgid "Purchase Order"
+msgstr "Ordem de compra"
+
+#: .\purchase\models.py:112
+msgid "Purchase Order Items"
+msgstr "Items da ordem de compra"
+
+#: .\purchase\models.py:113
+msgid "Purchase Order Item"
+msgstr "Item da ordem de compra"
+
+#: .\sales\apps.py:7
+msgid "Sales"
+msgstr "Vendas"
+
+#: .\sales\models.py:27
+msgid "Sellers"
+msgstr "Vendedores"
+
+#: .\sales\models.py:28
+msgid "Seller"
+msgstr "Vendedor"
+
+#: .\sales\models.py:51
+msgid "Sell Order Statuses"
+msgstr "Situações da ordem de venda"
+
+#: .\sales\models.py:52
+msgid "Sell Order Status"
+msgstr "Situação da ordem de venda"
+
+#: .\sales\models.py:81
+msgid "Sell Orders"
+msgstr "Ordens de venda"
+
+#: .\sales\models.py:82
+msgid "Sell Order"
+msgstr "Ordem de venda"
+
+#: .\sales\models.py:112
+msgid "Sell Order Items"
+msgstr "Items da ordem de venda"
+
+#: .\sales\models.py:113
+msgid "Sell Order Item"
+msgstr "Item da ordem de venda"
