@@ -151,10 +151,10 @@ class PurchaseOrderViewTest(unittest.TestCase):
     def test_create_purchaseorder(self):
         url = reverse('purchase_purchaseorder_create')
         data = {
-            "name": "name",
+            "details": "details",
             "supplier": create_supplier().pk,
             "status": create_purchaseorderstatus().pk,
-            "tracking": create_supplier().pk,
+            "tracking": create_tracking().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -169,10 +169,10 @@ class PurchaseOrderViewTest(unittest.TestCase):
     def test_update_purchaseorder(self):
         purchaseorder = create_purchaseorder()
         data = {
-            "name": "name",
+            "details": "details",
             "supplier": create_supplier().pk,
             "status": create_purchaseorderstatus().pk,
-            "tracking": create_supplier().pk,
+            "tracking": create_tracking().pk,
         }
         url = reverse('purchase_purchaseorder_update',
                       args=[purchaseorder.slug, ])
