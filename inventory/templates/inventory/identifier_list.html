@@ -1,0 +1,30 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
+<p>
+    <a class="btn btn-default" href="{% url 'inventory_identifier_list' %}">Identifier Listing</a>
+</p>
+<table class="table">
+    <tr>
+        <td>ID</td>
+        <td>Link</td>
+        <td>value</td>
+        <td>slug</td>
+        <td>created_at</td>
+        <td>updated_at</td>
+    </tr>
+    {% for object in object_list %}
+    <tr>
+        <td>{{object.pk}}</td>
+        <td>
+            <a href="{{object.get_absolute_url}}">{{object}}</a>
+        </td>
+        <td>{{ object.value }}</td>
+        <td>{{ object.slug }}</td>
+        <td>{{ object.created_at }}</td>
+        <td>{{ object.updated_at }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<a class="btn btn-primary" href="{% url 'inventory_identifier_create' %}">Create new Identifier</a>
+{% endblock %}
