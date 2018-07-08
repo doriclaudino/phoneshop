@@ -33,3 +33,27 @@ class Supplier(models.Model):
 
     def get_update_url(self):
         return reverse('purchase_supplier_update', args=(self.slug,))
+
+
+class PurchaseOrderStatus(models.Model):
+
+    # Fields
+    name = models.CharField(max_length=255)
+    slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    objects = models.Manager()
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name_plural = _('Purchase Order Statuses')
+        verbose_name = _('Purchase Order Status')
+
+    def __str__(self):
+        return u'%s' % self.slug
+
+    def get_absolute_url(self):
+        return reverse('purchase_purchaseorderstatus_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('purchase_purchaseorderstatus_update', args=(self.slug,))

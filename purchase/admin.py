@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import Supplier
+from .models import Supplier, PurchaseOrderStatus
 
 
 class SupplierAdminForm(forms.ModelForm):
@@ -17,3 +17,19 @@ class SupplierAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Supplier, SupplierAdmin)
+
+
+class PurchaseOrderStatusAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = PurchaseOrderStatus
+        fields = '__all__'
+
+
+class PurchaseOrderStatusAdmin(admin.ModelAdmin):
+    form = PurchaseOrderStatusAdminForm
+    list_display = ['name', 'slug', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
+
+
+admin.site.register(PurchaseOrderStatus, PurchaseOrderStatusAdmin)

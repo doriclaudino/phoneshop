@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import Supplier
-from .forms import SupplierForm
+from .models import Supplier, PurchaseOrderStatus
+from .forms import SupplierForm, PurchaseOrderStatusForm
 
 
 class SupplierListView(ListView):
@@ -20,3 +20,20 @@ class SupplierUpdateView(UpdateView):
     model = Supplier
     form_class = SupplierForm
 
+
+class PurchaseOrderStatusListView(ListView):
+    model = PurchaseOrderStatus
+
+
+class PurchaseOrderStatusCreateView(CreateView):
+    model = PurchaseOrderStatus
+    form_class = PurchaseOrderStatusForm
+
+
+class PurchaseOrderStatusDetailView(DetailView):
+    model = PurchaseOrderStatus
+
+
+class PurchaseOrderStatusUpdateView(UpdateView):
+    model = PurchaseOrderStatus
+    form_class = PurchaseOrderStatusForm
