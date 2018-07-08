@@ -17,27 +17,27 @@ urlpatterns = (
 )
 
 urlpatterns += (
-    # urls for LocationType
-    url(r'^inventory/locationtype/$', views.LocationTypeListView.as_view(),
-        name='inventory_locationtype_list'),
-    url(r'^inventory/locationtype/create/$',
-        views.LocationTypeCreateView.as_view(), name='inventory_locationtype_create'),
-    url(r'^inventory/locationtype/detail/(?P<slug>\S+)/$',
-        views.LocationTypeDetailView.as_view(), name='inventory_locationtype_detail'),
-    url(r'^inventory/locationtype/update/(?P<slug>\S+)/$',
-        views.LocationTypeUpdateView.as_view(), name='inventory_locationtype_update'),
+    # urls for LocalType
+    url(r'^inventory/localtype/$', views.LocalTypeListView.as_view(),
+        name='inventory_localtype_list'),
+    url(r'^inventory/localtype/create/$',
+        views.LocalTypeCreateView.as_view(), name='inventory_localtype_create'),
+    url(r'^inventory/localtype/detail/(?P<slug>\S+)/$',
+        views.LocalTypeDetailView.as_view(), name='inventory_localtype_detail'),
+    url(r'^inventory/localtype/update/(?P<slug>\S+)/$',
+        views.LocalTypeUpdateView.as_view(), name='inventory_localtype_update'),
 )
 
 urlpatterns += (
-    # urls for Location
-    url(r'^inventory/location/$', views.LocationListView.as_view(),
-        name='inventory_location_list'),
-    url(r'^inventory/location/create/$',
-        views.LocationCreateView.as_view(), name='inventory_location_create'),
-    url(r'^inventory/location/detail/(?P<slug>\S+)/$',
-        views.LocationDetailView.as_view(), name='inventory_location_detail'),
-    url(r'^inventory/location/update/(?P<slug>\S+)/$',
-        views.LocationUpdateView.as_view(), name='inventory_location_update'),
+    # urls for Local
+    url(r'^inventory/local/$', views.LocalListView.as_view(),
+        name='inventory_local_list'),
+    url(r'^inventory/local/create/$', views.LocalCreateView.as_view(),
+        name='inventory_local_create'),
+    url(r'^inventory/local/detail/(?P<slug>\S+)/$',
+        views.LocalDetailView.as_view(), name='inventory_local_detail'),
+    url(r'^inventory/local/update/(?P<slug>\S+)/$',
+        views.LocalUpdateView.as_view(), name='inventory_local_update'),
 )
 
 urlpatterns += (

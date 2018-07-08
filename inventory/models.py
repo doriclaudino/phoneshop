@@ -36,7 +36,7 @@ class IdentifierType(models.Model):
         return reverse('inventory_identifiertype_update', args=(self.slug,))
 
 
-class LocationType(models.Model):
+class LocalType(models.Model):
 
     # Fields
     name = models.CharField(max_length=255)
@@ -47,20 +47,20 @@ class LocationType(models.Model):
 
     class Meta:
         ordering = ('-pk',)
-        verbose_name_plural = _('Location Types')
-        verbose_name = _('Location Type')
+        verbose_name_plural = _('Local Types')
+        verbose_name = _('Local Type')
 
     def __str__(self):
         return u'%s' % self.slug
 
     def get_absolute_url(self):
-        return reverse('inventory_locationtype_detail', args=(self.slug,))
+        return reverse('inventory_localtype_detail', args=(self.slug,))
 
     def get_update_url(self):
-        return reverse('inventory_locationtype_update', args=(self.slug,))
+        return reverse('inventory_local_update', args=(self.slug,))
 
 
-class Location(models.Model):
+class Local(models.Model):
 
     # Fields
     name = models.CharField(max_length=255)
@@ -70,23 +70,21 @@ class Location(models.Model):
     objects = models.Manager()
 
     # Relationship Fields
-    type = models.ForeignKey(
-        LocationType, related_name='+', on_delete=models.CASCADE
-    )
+    type = models.ForeignKey(LocalType, related_name='+')
 
     class Meta:
         ordering = ('-pk',)
-        verbose_name_plural = _('Locations')
-        verbose_name = _('Location')
+        verbose_name_plural = _('Locals')
+        verbose_name = _('Local')
 
     def __str__(self):
         return u'%s' % self.slug
 
     def get_absolute_url(self):
-        return reverse('inventory_location_detail', args=(self.slug,))
+        return reverse('inventory_local_detail', args=(self.slug,))
 
     def get_update_url(self):
-        return reverse('inventory_location_update', args=(self.slug,))
+        return reverse('inventory_local_update', args=(self.slug,))
 
 
 class Identifier(models.Model):
@@ -129,7 +127,7 @@ class Item(models.Model):
     # Relationship Fields
     product = models.ForeignKey(PurchaseOrderItem, related_name='+')
     identifier = models.ForeignKey(Identifier, related_name='+')
-    location = models.ForeignKey(Location, related_name='+')
+    local = models.ForeignKey(Local, related_name='+')
 
     class Meta:
         ordering = ('-pk',)

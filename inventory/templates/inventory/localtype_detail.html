@@ -1,8 +1,6 @@
-{% extends "base.html" %} 
-{% load static %} 
-{% block content %}
+{% extends "base.html" %} {% load static %} {% block content %}
 <p>
-    <a class="btn btn-default" href="{% url 'inventory_location_list' %}">Location Listing</a>
+    <a class="btn btn-default" href="{% url 'inventory_localtype_list' %}">LocalType Listing</a>
 </p>
 <table class="table">
     <tr>
@@ -22,6 +20,6 @@
         <td>{{ object.updated_at }}</td>
     </tr>
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Location</a>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit LocalType</a>
 
 {% endblock %}

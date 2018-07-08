@@ -1,5 +1,5 @@
 from django import forms
-from .models import IdentifierType, LocationType, Location, Identifier, Item
+from .models import IdentifierType, LocalType, Local, Identifier, Item
 
 
 class IdentifierTypeForm(forms.ModelForm):
@@ -8,15 +8,15 @@ class IdentifierTypeForm(forms.ModelForm):
         fields = ['name']
 
 
-class LocationTypeForm(forms.ModelForm):
+class LocalTypeForm(forms.ModelForm):
     class Meta:
-        model = LocationType
+        model = LocalType
         fields = ['name']
 
 
-class LocationForm(forms.ModelForm):
+class LocalForm(forms.ModelForm):
     class Meta:
-        model = Location
+        model = Local
         fields = ['name', 'type']
 
 
@@ -29,4 +29,6 @@ class IdentifierForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['identifier', 'product',  'location']
+        fields = ['identifier', 'product', 'local']
+
+

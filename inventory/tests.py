@@ -1,7 +1,7 @@
 import unittest
 from django.core.urlresolvers import reverse
 from django.test import Client
-from .models import IdentifierType, LocationType, Location, Identifier, Item
+from .models import IdentifierType, LocalType, Local, Identifier, Item
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -36,20 +36,20 @@ def create_identifiertype(**kwargs):
     return IdentifierType.objects.create(**defaults)
 
 
-def create_locationtype(**kwargs):
+def create_localtype(**kwargs):
     defaults = {}
     defaults["name"] = "name"
     defaults.update(**kwargs)
-    return LocationType.objects.create(**defaults)
+    return LocalType.objects.create(**defaults)
 
 
-def create_location(**kwargs):
+def create_local(**kwargs):
     defaults = {}
     defaults["name"] = "name"
     defaults.update(**kwargs)
     if "type" not in defaults:
-        defaults["type"] = create_locationtype()
-    return Location.objects.create(**defaults)
+        defaults["type"] = create_localtype()
+    return Local.objects.create(**defaults)
 
 
 def create_identifier(**kwargs):
@@ -68,8 +68,8 @@ def create_item(**kwargs):
         defaults["identifier"] = create_identifier()
     if "product" not in defaults:
         defaults["product"] = create_purchaseorderitem()
-    if "location" not in defaults:
-        defaults["location"] = create_location()
+    if "local" not in defaults:
+        defaults["local"] = create_local()
     return Item.objects.create(**defaults)
 
 
@@ -112,80 +112,78 @@ class IdentifierTypeViewTest(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class LocationTypeViewTest(unittest.TestCase):
+class LocalTypeViewTest(unittest.TestCase):
     '''
-    Tests for LocationType
+    Tests for LocalType
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_locationtype(self):
-        url = reverse('inventory_locationtype_list')
+    def test_list_localtype(self):
+        url = reverse('inventory_localtype_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_locationtype(self):
-        url = reverse('inventory_locationtype_create')
+    def test_create_localtype(self):
+        url = reverse('inventory_localtype_create')
         data = {
             "name": "name",
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_locationtype(self):
-        locationtype = create_locationtype()
-        url = reverse('inventory_locationtype_detail',
-                      args=[locationtype.slug, ])
+    def test_detail_localtype(self):
+        localtype = create_localtype()
+        url = reverse('inventory_localtype_detail', args=[localtype.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_locationtype(self):
-        locationtype = create_locationtype()
+    def test_update_localtype(self):
+        localtype = create_localtype()
         data = {
             "name": "name",
         }
-        url = reverse('inventory_locationtype_update',
-                      args=[locationtype.slug, ])
+        url = reverse('inventory_localtype_update', args=[localtype.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
 
-class LocationViewTest(unittest.TestCase):
+class LocalViewTest(unittest.TestCase):
     '''
-    Tests for Location
+    Tests for Local
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_location(self):
-        url = reverse('inventory_location_list')
+    def test_list_local(self):
+        url = reverse('inventory_local_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_location(self):
-        url = reverse('inventory_location_create')
+    def test_create_local(self):
+        url = reverse('inventory_local_create')
         data = {
             "name": "name",
-            "type": create_locationtype().pk,
+            "type": create_localtype().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_location(self):
-        location = create_location()
-        url = reverse('inventory_location_detail', args=[location.slug, ])
+    def test_detail_local(self):
+        local = create_local()
+        url = reverse('inventory_local_detail', args=[local.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_location(self):
-        location = create_location()
+    def test_update_local(self):
+        local = create_local()
         data = {
             "name": "name",
-            "type": create_locationtype().pk,
+            "type": create_localtype().pk,
         }
-        url = reverse('inventory_location_update', args=[location.slug, ])
+        url = reverse('inventory_local_update', args=[local.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
@@ -247,7 +245,7 @@ class ItemViewTest(unittest.TestCase):
         data = {
             "identifier": create_identifier().pk,
             "product": create_purchaseorderitem().pk,
-            "location": create_location().pk,
+            "local": create_local().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -263,7 +261,7 @@ class ItemViewTest(unittest.TestCase):
         data = {
             "identifier": create_identifier().pk,
             "product": create_purchaseorderitem().pk,
-            "location": create_location().pk,
+            "local": create_local().pk,
         }
         url = reverse('inventory_item_update', args=[item.slug, ])
         response = self.client.post(url, data)

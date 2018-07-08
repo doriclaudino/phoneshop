@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import IdentifierType, LocationType, Location, Identifier, Item
+from .models import IdentifierType, LocalType, Local, Identifier, Item
 
 
 class IdentifierTypeAdminForm(forms.ModelForm):
@@ -19,36 +19,37 @@ class IdentifierTypeAdmin(admin.ModelAdmin):
 admin.site.register(IdentifierType, IdentifierTypeAdmin)
 
 
-class LocationTypeAdminForm(forms.ModelForm):
+class LocalTypeAdminForm(forms.ModelForm):
 
     class Meta:
-        model = LocationType
+        model = LocalType
         fields = '__all__'
 
 
-class LocationTypeAdmin(admin.ModelAdmin):
-    form = LocationTypeAdminForm
+class LocalTypeAdmin(admin.ModelAdmin):
+    form = LocalTypeAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
-admin.site.register(LocationType, LocationTypeAdmin)
+admin.site.register(LocalType, LocalTypeAdmin)
 
 
-class LocationAdminForm(forms.ModelForm):
+class LocalAdminForm(forms.ModelForm):
 
     class Meta:
-        model = Location
+        model = Local
         fields = '__all__'
 
 
-class LocationAdmin(admin.ModelAdmin):
-    form = LocationAdminForm
+class LocalAdmin(admin.ModelAdmin):
+    form = LocalAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
+    fields = ['type', 'name', 'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
-admin.site.register(Location, LocationAdmin)
+admin.site.register(Local, LocalAdmin)
 
 
 class IdentifierAdminForm(forms.ModelForm):
@@ -77,9 +78,9 @@ class ItemAdminForm(forms.ModelForm):
 
 class ItemAdmin(admin.ModelAdmin):
     form = ItemAdminForm
-    list_display = ['slug', 'product', 'location',
+    list_display = ['slug', 'product', 'local',
                     'identifier', 'created_at', 'updated_at']
-    fields = ['product', 'location', 'identifier',
+    fields = ['product', 'local', 'identifier',
               'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 

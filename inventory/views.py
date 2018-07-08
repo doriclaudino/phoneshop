@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import IdentifierType, LocationType, Location, Identifier, Item
-from .forms import IdentifierTypeForm, LocationTypeForm, LocationForm, IdentifierForm, ItemForm
+from .models import IdentifierType, LocalType, Local, Identifier, Item
+from .forms import IdentifierTypeForm, LocalTypeForm, LocalForm, IdentifierForm, ItemForm
 
 
 class IdentifierTypeListView(ListView):
@@ -21,40 +21,40 @@ class IdentifierTypeUpdateView(UpdateView):
     form_class = IdentifierTypeForm
 
 
-class LocationTypeListView(ListView):
-    model = LocationType
+class LocalTypeListView(ListView):
+    model = LocalType
 
 
-class LocationTypeCreateView(CreateView):
-    model = LocationType
-    form_class = LocationTypeForm
+class LocalTypeCreateView(CreateView):
+    model = LocalType
+    form_class = LocalTypeForm
 
 
-class LocationTypeDetailView(DetailView):
-    model = LocationType
+class LocalTypeDetailView(DetailView):
+    model = LocalType
 
 
-class LocationTypeUpdateView(UpdateView):
-    model = LocationType
-    form_class = LocationTypeForm
+class LocalTypeUpdateView(UpdateView):
+    model = LocalType
+    form_class = LocalTypeForm
 
 
-class LocationListView(ListView):
-    model = Location
+class LocalListView(ListView):
+    model = Local
 
 
-class LocationCreateView(CreateView):
-    model = Location
-    form_class = LocationForm
+class LocalCreateView(CreateView):
+    model = Local
+    form_class = LocalForm
 
 
-class LocationDetailView(DetailView):
-    model = Location
+class LocalDetailView(DetailView):
+    model = Local
 
 
-class LocationUpdateView(UpdateView):
-    model = Location
-    form_class = LocationForm
+class LocalUpdateView(UpdateView):
+    model = Local
+    form_class = LocalForm
 
 
 class IdentifierListView(ListView):

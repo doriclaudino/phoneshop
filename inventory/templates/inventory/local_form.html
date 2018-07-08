@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %} 
 {% block content %}
 <p>
-    <a class="btn btn-default" href="{% url 'inventory_locationtype_list' %}">LocationType Listing</a>
+    <a class="btn btn-default" href="{% url 'inventory_local_list' %}">Local Listing</a>
 </p>
 <form method="post">
     {% csrf_token %} {{form|crispy}}

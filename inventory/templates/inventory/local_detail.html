@@ -2,7 +2,7 @@
 {% load static %} 
 {% block content %}
 <p>
-    <a class="btn btn-default" href="{% url 'inventory_locationtype_list' %}">LocationType Listing</a>
+    <a class="btn btn-default" href="{% url 'inventory_local_list' %}">Local Listing</a>
 </p>
 <table class="table">
     <tr>
@@ -22,6 +22,6 @@
         <td>{{ object.updated_at }}</td>
     </tr>
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit LocationType</a>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Local</a>
 
 {% endblock %}
