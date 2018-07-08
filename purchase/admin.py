@@ -62,8 +62,11 @@ class PurchaseOrderItemAdminForm(forms.ModelForm):
 
 class PurchaseOrderItemAdmin(admin.ModelAdmin):
     form = PurchaseOrderItemAdminForm
-    list_display = ['slug', 'created_at', 'updated_at', 'quantity', 'price']
-    readonly_fields = ['slug', 'created_at', 'updated_at', 'quantity', 'price']
+    fields = ['order', 'product', 'quantity',
+              'price', 'slug', 'created_at', 'updated_at']
+    list_display = ['slug', 'order', 'product',
+                    'created_at', 'updated_at', 'quantity', 'price']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
 admin.site.register(PurchaseOrderItem, PurchaseOrderItemAdmin)
