@@ -39,3 +39,15 @@ urlpatterns += (
     url(r'^purchase/purchaseorder/update/(?P<slug>\S+)/$',
         views.PurchaseOrderUpdateView.as_view(), name='purchase_purchaseorder_update'),
 )
+
+urlpatterns += (
+    # urls for PurchaseOrderItem
+    url(r'^purchase/purchaseorderitem/$', views.PurchaseOrderItemListView.as_view(),
+        name='purchase_purchaseorderitem_list'),
+    url(r'^purchase/purchaseorderitem/create/$',
+        views.PurchaseOrderItemCreateView.as_view(), name='purchase_purchaseorderitem_create'),
+    url(r'^purchase/purchaseorderitem/detail/(?P<slug>\S+)/$',
+        views.PurchaseOrderItemDetailView.as_view(), name='purchase_purchaseorderitem_detail'),
+    url(r'^purchase/purchaseorderitem/update/(?P<slug>\S+)/$',
+        views.PurchaseOrderItemUpdateView.as_view(), name='purchase_purchaseorderitem_update'),
+)

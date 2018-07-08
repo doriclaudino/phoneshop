@@ -9,6 +9,7 @@ from django.db import models as models
 from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
 from logistic.models import Tracking
+from catalog.models import ProductModel
 
 
 class Supplier(models.Model):
@@ -88,3 +89,33 @@ class PurchaseOrder(models.Model):
 
     def get_update_url(self):
         return reverse('purchase_purchaseorder_update', args=(self.slug,))
+
+
+class PurchaseOrderItem(models.Model):
+
+    # Fields
+    slug = extension_fields.AutoSlugField(
+        populate_from=['product', 'order', 'quantity', 'price'], blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
+    quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    objects = models.Manager()
+
+    # Relationship Fields
+    product = models.ForeignKey(ProductModel, related_name='+')
+    order = models.ForeignKey(PurchaseOrder, related_name='+')
+
+    class Meta:
+        ordering = ('-pk',)
+        verbose_name_plural = _('Purchase Order Items')
+        verbose_name = _('Purchase Order Item')
+
+    def __str__(self):
+        return u'%s' % self.slug
+
+    def get_absolute_url(self):
+        return reverse('purchase_purchaseorderitem_detail', args=(self.slug,))
+
+    def get_update_url(self):
+        return reverse('purchase_purchaseorderitem_update', args=(self.slug,))

@@ -1,11 +1,12 @@
 import unittest
 from django.core.urlresolvers import reverse
 from django.test import Client
-from .models import Supplier, PurchaseOrderStatus, PurchaseOrder
+from .models import Supplier, PurchaseOrderStatus, PurchaseOrder, PurchaseOrderItem
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from logistic.tests import create_tracking
+from catalog.tests import create_productmodel
 
 
 def create_django_contrib_auth_models_user(**kwargs):
@@ -55,6 +56,18 @@ def create_purchaseorder(**kwargs):
     if "tracking" not in defaults:
         defaults["tracking"] = create_tracking()
     return PurchaseOrder.objects.create(**defaults)
+
+
+def create_purchaseorderitem(**kwargs):
+    defaults = {}
+    defaults["quantity"] = 1
+    defaults["price"] = 10.00
+    defaults.update(**kwargs)
+    if "product" not in defaults:
+        defaults["product"] = create_productmodel()
+    if "order" not in defaults:
+        defaults["order"] = create_purchaseorder()
+    return PurchaseOrderItem.objects.create(**defaults)
 
 
 class SupplierViewTest(unittest.TestCase):
@@ -176,5 +189,50 @@ class PurchaseOrderViewTest(unittest.TestCase):
         }
         url = reverse('purchase_purchaseorder_update',
                       args=[purchaseorder.slug, ])
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+
+class PurchaseOrderItemViewTest(unittest.TestCase):
+    '''
+    Tests for PurchaseOrderItem
+    '''
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_list_purchaseorderitem(self):
+        url = reverse('purchase_purchaseorderitem_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_purchaseorderitem(self):
+        url = reverse('purchase_purchaseorderitem_create')
+        data = {
+            "quantity": 1,
+            "price": 10.00,
+            "product": create_supplier().pk,
+            "order": create_purchaseorder().pk,
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_detail_purchaseorderitem(self):
+        purchaseorderitem = create_purchaseorderitem()
+        url = reverse('purchase_purchaseorderitem_detail',
+                      args=[purchaseorderitem.slug, ])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_purchaseorderitem(self):
+        purchaseorderitem = create_purchaseorderitem()
+        data = {
+            "quantity": 1,
+            "price": 10.00,
+            "product": create_supplier().pk,
+            "order": create_purchaseorder().pk,
+        }
+        url = reverse('purchase_purchaseorderitem_update',
+                      args=[purchaseorderitem.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
