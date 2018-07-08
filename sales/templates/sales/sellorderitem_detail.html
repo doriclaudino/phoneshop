@@ -1,0 +1,31 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
+<p>
+    <a class="btn btn-default" href="{% url 'sales_sellorderitem_list' %}">SellOrderItem Listing</a>
+</p>
+<table class="table">
+    <tr>
+        <td>slug</td>
+        <td>{{ object.slug }}</td>
+    </tr>
+    <tr>
+        <td>created_at</td>
+        <td>{{ object.created_at }}</td>
+    </tr>
+    <tr>
+        <td>updated_at</td>
+        <td>{{ object.updated_at }}</td>
+    </tr>
+    <tr>
+        <td>quantity</td>
+        <td>{{ object.quantity }}</td>
+    </tr>
+    <tr>
+        <td>price</td>
+        <td>{{ object.price }}</td>
+    </tr>
+</table>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit SellOrderItem</a>
+
+{% endblock %}
