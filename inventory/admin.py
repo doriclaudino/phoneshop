@@ -12,8 +12,8 @@ class IdentifierTypeAdminForm(forms.ModelForm):
 
 class IdentifierTypeAdmin(admin.ModelAdmin):
     form = IdentifierTypeAdminForm
-    list_display = ['name', 'slug', 'created_at', 'update_at']
-    readonly_fields = ['slug', 'created_at', 'update_at']
+    list_display = ['name', 'slug', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
 admin.site.register(IdentifierType, IdentifierTypeAdmin)

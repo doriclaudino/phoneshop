@@ -18,7 +18,7 @@ class IdentifierType(models.Model):
     name = models.CharField(max_length=255)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    update_at = models.DateTimeField(auto_now=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True, editable=False)
     objects = models.Manager()
 
     class Meta:
