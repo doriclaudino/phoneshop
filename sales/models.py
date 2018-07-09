@@ -9,7 +9,7 @@ from django.db import models as models
 from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
 from logistic.models import Tracking
-from catalog.models import ProductModel
+from inventory.models import Item
 
 
 class Seller(models.Model):
@@ -104,7 +104,7 @@ class SellOrderItem(models.Model):
     objects = models.Manager()
 
     # Relationship Fields
-    product = models.ForeignKey(ProductModel, related_name='+')
+    product = models.ForeignKey(Item, related_name='+')
     order = models.ForeignKey(SellOrder, related_name='+')
 
     class Meta:

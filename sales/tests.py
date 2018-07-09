@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from logistic.tests import create_tracking
-from catalog.tests import create_productmodel
+from inventory.tests import create_item
 
 
 def create_django_contrib_auth_models_user(**kwargs):
@@ -64,7 +64,7 @@ def create_sellorderitem(**kwargs):
     defaults["price"] = 100.00
     defaults.update(**kwargs)
     if "product" not in defaults:
-        defaults["product"] = create_productmodel()
+        defaults["product"] = create_item()
     if "order" not in defaults:
         defaults["order"] = create_sellorder()
     return SellOrderItem.objects.create(**defaults)
@@ -209,7 +209,7 @@ class SellOrderItemViewTest(unittest.TestCase):
         data = {
             "quantity": 1,
             "price": 100.00,
-            "product": create_productmodel().pk,
+            "product": create_item().pk,
             "order": create_sellorder().pk,
         }
         response = self.client.post(url, data=data)
@@ -227,7 +227,7 @@ class SellOrderItemViewTest(unittest.TestCase):
         data = {
             "quantity": 1,
             "price": 100.00,
-            "product": create_productmodel().pk,
+            "product": create_item().pk,
             "order": create_sellorder().pk,
         }
         url = reverse('sales_sellorderitem_update',
