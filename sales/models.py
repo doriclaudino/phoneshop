@@ -111,6 +111,7 @@ class SellOrderItem(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Sell Order Items')
         verbose_name = _('Sell Order Item')
+        unique_together = ('product', 'order')
 
     def __str__(self):
         return u'%s' % self.slug
