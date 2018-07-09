@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django_extensions.db.fields import AutoSlugField
+from django_extensions.db.fields import AutoSlugField, slugify
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -10,66 +10,37 @@ from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
 from logistic.models import Tracking
 from catalog.models import ProductModel
+from phoneshop.models import SlugModel, SlugName
 
 
-class Supplier(models.Model):
+class Supplier(SlugName):
 
-    # Fields
-    name = models.CharField(max_length=255)
-    slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
     website = models.CharField(max_length=100)
-    objects = models.Manager()
 
     class Meta:
-        ordering = ('-pk',)
         verbose_name_plural = _('Suppliers')
         verbose_name = _('Supplier')
 
-    def __str__(self):
-        return u'%s' % self.slug
-
-    def get_absolute_url(self):
-        return reverse('purchase_supplier_detail', args=(self.slug,))
-
-    def get_update_url(self):
-        return reverse('purchase_supplier_update', args=(self.slug,))
+    def get_package_name(self):
+        return __package__
 
 
-class PurchaseOrderStatus(models.Model):
-
-    # Fields
-    name = models.CharField(max_length=255)
-    slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
-    objects = models.Manager()
+class PurchaseOrderStatus(SlugName):
 
     class Meta:
-        ordering = ('-pk',)
         verbose_name_plural = _('Purchase Order Statuses')
         verbose_name = _('Purchase Order Status')
 
-    def __str__(self):
-        return u'%s' % self.slug
-
-    def get_absolute_url(self):
-        return reverse('purchase_purchaseorderstatus_detail', args=(self.slug,))
-
-    def get_update_url(self):
-        return reverse('purchase_purchaseorderstatus_update', args=(self.slug,))
+    def get_package_name(self):
+        return __package__
 
 
-class PurchaseOrder(models.Model):
+class PurchaseOrder(SlugModel):
 
     # Fields
     details = models.TextField(max_length=500, blank=True)
     slug = extension_fields.AutoSlugField(
         populate_from=['supplier', 'tracking'], blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
-    objects = models.Manager()
 
     # Relationship Fields
     supplier = models.ForeignKey(Supplier, related_name='+')
@@ -77,46 +48,41 @@ class PurchaseOrder(models.Model):
     tracking = models.ForeignKey(Tracking, related_name='+', blank=True)
 
     class Meta:
-        ordering = ('-pk',)
         verbose_name_plural = _('Purchase Orders')
         verbose_name = _('Purchase Order')
 
-    def __str__(self):
-        return u'%s' % self.slug
+    def get_package_name(self):
+        return __package__
 
-    def get_absolute_url(self):
-        return reverse('purchase_purchaseorder_detail', args=(self.slug,))
+    def save(self, *args, **kwargs):
+        name = '{0} {1}'.format(self.supplier, self.tracking)
+        self.slug = slugify(name)
+        models.Model.save(self, *args, **kwargs)
 
-    def get_update_url(self):
-        return reverse('purchase_purchaseorder_update', args=(self.slug,))
 
-
-class PurchaseOrderItem(models.Model):
+class PurchaseOrderItem(SlugModel):
 
     # Fields
     slug = extension_fields.AutoSlugField(
-        populate_from=['product', 'order', 'quantity', 'price'], blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
+        populate_from=['order', 'product', 'quantity', 'price'], blank=True)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(
         max_digits=10, decimal_places=2, default=100.00)
-    objects = models.Manager()
 
     # Relationship Fields
     product = models.ForeignKey(ProductModel, related_name='+')
     order = models.ForeignKey(PurchaseOrder, related_name='+')
 
     class Meta:
-        ordering = ('-pk',)
         verbose_name_plural = _('Purchase Order Items')
         verbose_name = _('Purchase Order Item')
+        
 
-    def __str__(self):
-        return u'%s' % self.slug
+    def get_package_name(self):
+        return __package__
 
-    def get_absolute_url(self):
-        return reverse('purchase_purchaseorderitem_detail', args=(self.slug,))
-
-    def get_update_url(self):
-        return reverse('purchase_purchaseorderitem_update', args=(self.slug,))
+    def save(self, *args, **kwargs):
+        name = '{0} {1} {2} {3}'.format(self.order, self.product,
+                                        self.quantity, self.price)
+        self.slug = slugify(name)
+        models.Model.save(self, *args, **kwargs)

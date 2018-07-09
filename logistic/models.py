@@ -49,7 +49,7 @@ class Tracking(SlugModel):
 
     # Fields
     number = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from=['number', 'carrier'], blank=True)
+    slug = AutoSlugField(populate_from=['carrier', 'number'], blank=True)
     description = models.TextField(max_length=100,  blank=True)
 
     # Relationship Fields
