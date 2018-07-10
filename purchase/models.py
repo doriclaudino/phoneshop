@@ -10,7 +10,7 @@ from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
 from logistic.models import Tracking
 from catalog.models import ProductModel
-from phoneshop.models import SlugModel, SlugName
+from phoneshop.models import SlugModel, SlugName, SlugOrderItem
 
 
 class Supplier(SlugName):
@@ -61,29 +61,11 @@ class PurchaseOrder(SlugModel):
         models.Model.save(self, *args, **kwargs)
 
 
-class PurchaseOrderItem(SlugModel):
-
-    # Fields
-    slug = extension_fields.AutoSlugField(
-        populate_from=['order', 'product', 'quantity', 'price'], blank=True)
-    quantity = models.IntegerField(default=1)
-    price = models.DecimalField(
-        max_digits=10, decimal_places=2, default=100.00)
+class PurchaseOrderItem(SlugOrderItem):
 
     # Relationship Fields
     product = models.ForeignKey(ProductModel, related_name='+')
     order = models.ForeignKey(PurchaseOrder, related_name='+')
 
-    class Meta:
-        verbose_name_plural = _('Purchase Order Items')
-        verbose_name = _('Purchase Order Item')
-        unique_together = ('product', 'order')
-
     def get_package_name(self):
         return __package__
-
-    def save(self, *args, **kwargs):
-        name = '{0} {1} {2} {3}'.format(self.order, self.product,
-                                        self.quantity, self.price)
-        self.slug = slugify(name)
-        models.Model.save(self, *args, **kwargs)

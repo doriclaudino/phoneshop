@@ -52,9 +52,6 @@ class ProductModel(SlugModel):
     # Fields
     slug = extension_fields.AutoSlugField(
         populate_from=['product', 'model'], blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, editable=False)
-    updated_at = models.DateTimeField(auto_now=True, editable=False)
-    objects = models.Manager()
 
     # Relationship Fields
     product = models.ForeignKey(Product, related_name='+')
