@@ -1,4 +1,5 @@
 import unittest
+import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
 from .models import IdentifierType, LocalType, Local, Identifier, Item
@@ -31,21 +32,21 @@ def create_django_contrib_contenttypes_models_contenttype(**kwargs):
 
 def create_identifiertype(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return IdentifierType.objects.create(**defaults)
 
 
 def create_localtype(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return LocalType.objects.create(**defaults)
 
 
 def create_local(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     if "type" not in defaults:
         defaults["type"] = create_localtype()
@@ -89,7 +90,7 @@ class IdentifierTypeViewTest(unittest.TestCase):
     def test_create_identifiertype(self):
         url = reverse('inventory_identifiertype_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -104,7 +105,7 @@ class IdentifierTypeViewTest(unittest.TestCase):
     def test_update_identifiertype(self):
         identifiertype = create_identifiertype()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('inventory_identifiertype_update',
                       args=[identifiertype.slug, ])
@@ -128,7 +129,7 @@ class LocalTypeViewTest(unittest.TestCase):
     def test_create_localtype(self):
         url = reverse('inventory_localtype_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -142,7 +143,7 @@ class LocalTypeViewTest(unittest.TestCase):
     def test_update_localtype(self):
         localtype = create_localtype()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('inventory_localtype_update', args=[localtype.slug, ])
         response = self.client.post(url, data)
@@ -165,7 +166,7 @@ class LocalViewTest(unittest.TestCase):
     def test_create_local(self):
         url = reverse('inventory_local_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "type": create_localtype().pk,
         }
         response = self.client.post(url, data=data)
@@ -180,7 +181,7 @@ class LocalViewTest(unittest.TestCase):
     def test_update_local(self):
         local = create_local()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "type": create_localtype().pk,
         }
         url = reverse('inventory_local_update', args=[local.slug, ])

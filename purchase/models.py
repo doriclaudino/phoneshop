@@ -50,6 +50,7 @@ class PurchaseOrder(SlugModel):
     class Meta:
         verbose_name_plural = _('Purchase Orders')
         verbose_name = _('Purchase Order')
+        unique_together = ('supplier', 'tracking')
 
     def get_package_name(self):
         return __package__
@@ -76,7 +77,7 @@ class PurchaseOrderItem(SlugModel):
     class Meta:
         verbose_name_plural = _('Purchase Order Items')
         verbose_name = _('Purchase Order Item')
-        
+        unique_together = ('product', 'order')
 
     def get_package_name(self):
         return __package__

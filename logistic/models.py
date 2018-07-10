@@ -61,6 +61,7 @@ class Tracking(SlugModel):
     class Meta:
         verbose_name_plural = _('Trackings')
         verbose_name = _('Tracking')
+        unique_together = ('carrier', 'number')
 
     def get_package_name(self):
         return __package__

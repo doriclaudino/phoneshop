@@ -49,6 +49,7 @@ class SellOrder(SlugModel):
     class Meta:
         verbose_name_plural = _('Sell Orders')
         verbose_name = _('Sell Order')
+        unique_together = ('seller', 'tracking')
 
     def save(self, *args, **kwargs):
         name = '{0} {1}'.format(self.seller, self.tracking)

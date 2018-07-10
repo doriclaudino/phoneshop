@@ -59,6 +59,7 @@ class Identifier(SlugModel):
     class Meta:
         verbose_name_plural = _('Identifiers')
         verbose_name = _('Identifier')
+        unique_together = ('type', 'value')
 
     def get_package_name(self):
         return __package__
@@ -83,6 +84,7 @@ class Item(SlugModel):
     class Meta:
         verbose_name_plural = _('Items')
         verbose_name = _('Item')
+        unique_together = ('product', 'identifier')
 
     def get_package_name(self):
         return __package__
