@@ -1,4 +1,5 @@
 import unittest
+import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
 from .models import Location, Carrier, TrackingStatus, Tracking
@@ -25,14 +26,14 @@ def create_django_group(**kwargs):
 
 def create_location(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return Location.objects.create(**defaults)
 
 
 def create_carrier(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults["website"] = "website"
     defaults["tracking_url"] = "tracking_url"
     defaults.update(**kwargs)
@@ -41,7 +42,7 @@ def create_carrier(**kwargs):
 
 def create_trackingstatus(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return TrackingStatus.objects.create(**defaults)
 
@@ -77,7 +78,7 @@ class LocationViewTest(unittest.TestCase):
     def test_create_location(self):
         url = reverse('logistic_location_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -91,7 +92,7 @@ class LocationViewTest(unittest.TestCase):
     def test_update_location(self):
         location = create_location()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('logistic_location_update', args=[location.slug, ])
         response = self.client.post(url, data)
@@ -114,7 +115,7 @@ class CarrierViewTest(unittest.TestCase):
     def test_create_carrier(self):
         url = reverse('logistic_carrier_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "website": "website",
             "tracking_url": "tracking_url",
         }
@@ -130,7 +131,7 @@ class CarrierViewTest(unittest.TestCase):
     def test_update_carrier(self):
         carrier = create_carrier()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "website": "website",
             "tracking_url": "tracking_url",
         }
@@ -155,7 +156,7 @@ class TrackingStatusViewTest(unittest.TestCase):
     def test_create_trackingstatus(self):
         url = reverse('logistic_trackingstatus_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -170,7 +171,7 @@ class TrackingStatusViewTest(unittest.TestCase):
     def test_update_trackingstatus(self):
         trackingstatus = create_trackingstatus()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('logistic_trackingstatus_update',
                       args=[trackingstatus.slug, ])

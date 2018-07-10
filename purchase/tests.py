@@ -1,4 +1,5 @@
 import unittest
+import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
 from .models import Supplier, PurchaseOrderStatus, PurchaseOrder, PurchaseOrderItem
@@ -32,7 +33,7 @@ def create_django_contrib_contenttypes_models_contenttype(**kwargs):
 
 def create_supplier(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults["website"] = "website"
     defaults.update(**kwargs)
     return Supplier.objects.create(**defaults)
@@ -40,7 +41,7 @@ def create_supplier(**kwargs):
 
 def create_purchaseorderstatus(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return PurchaseOrderStatus.objects.create(**defaults)
 
@@ -86,7 +87,7 @@ class SupplierViewTest(unittest.TestCase):
     def test_create_supplier(self):
         url = reverse('purchase_supplier_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "website": "website",
         }
         response = self.client.post(url, data=data)
@@ -101,7 +102,7 @@ class SupplierViewTest(unittest.TestCase):
     def test_update_supplier(self):
         supplier = create_supplier()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "website": "website",
         }
         url = reverse('purchase_supplier_update', args=[supplier.slug, ])
@@ -125,7 +126,7 @@ class PurchaseOrderStatusViewTest(unittest.TestCase):
     def test_create_purchaseorderstatus(self):
         url = reverse('purchase_purchaseorderstatus_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -140,7 +141,7 @@ class PurchaseOrderStatusViewTest(unittest.TestCase):
     def test_update_purchaseorderstatus(self):
         purchaseorderstatus = create_purchaseorderstatus()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('purchase_purchaseorderstatus_update',
                       args=[purchaseorderstatus.slug, ])
