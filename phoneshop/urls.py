@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
+from django.views.defaults import page_not_found
 
 urlpatterns = i18n_patterns(
     url(r'^admin/', admin.site.urls),
@@ -27,3 +28,8 @@ urlpatterns = i18n_patterns(
     url(r'^home/', include('home.urls')),
 
 )
+
+handler404 = 'home.views.home'
+handler500 = 'home.views.home'
+handler403 = 'home.views.home'
+handler400 = 'home.views.home'
