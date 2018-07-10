@@ -15,7 +15,7 @@ from purchase.models import PurchaseOrderItem
 class IdentifierType(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     update_at = models.DateTimeField(auto_now=True, editable=False)
@@ -39,7 +39,7 @@ class IdentifierType(models.Model):
 class LocalType(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -63,7 +63,7 @@ class LocalType(models.Model):
 class Local(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -104,6 +104,7 @@ class Identifier(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Identifiers')
         verbose_name = _('Identifier')
+        unique_together = ('type', 'value')
 
     def __str__(self):
         return u'%s' % self.slug
@@ -133,6 +134,7 @@ class Item(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Items')
         verbose_name = _('Item')
+        unique_together = ('product', 'identifier')
 
     def __str__(self):
         return u'%s' % self.slug

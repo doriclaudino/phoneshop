@@ -15,7 +15,7 @@ from inventory.models import Item
 class Seller(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -40,7 +40,7 @@ class Seller(models.Model):
 class SellOrderStatus(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -80,6 +80,7 @@ class SellOrder(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Sell Orders')
         verbose_name = _('Sell Order')
+        unique_together = ('seller', 'tracking')
 
     def __str__(self):
         return u'%s' % self.slug

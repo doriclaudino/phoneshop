@@ -15,7 +15,7 @@ from catalog.models import ProductModel
 class Supplier(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -40,7 +40,7 @@ class Supplier(models.Model):
 class PurchaseOrderStatus(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -80,6 +80,7 @@ class PurchaseOrder(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Purchase Orders')
         verbose_name = _('Purchase Order')
+        unique_together = ('supplier', 'tracking')
 
     def __str__(self):
         return u'%s' % self.slug
@@ -111,6 +112,7 @@ class PurchaseOrderItem(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Purchase Order Items')
         verbose_name = _('Purchase Order Item')
+        unique_together = ('product', 'order')
 
     def __str__(self):
         return u'%s' % self.slug

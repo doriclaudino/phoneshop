@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 class Location(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -37,7 +37,7 @@ class Location(models.Model):
 class Carrier(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     website = models.CharField(max_length=100, blank=True)
     tracking_url = models.CharField(max_length=100, blank=True)
     slug = AutoSlugField(populate_from='name', blank=True)
@@ -63,7 +63,7 @@ class Carrier(models.Model):
 class TrackingStatus(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -88,7 +88,7 @@ class Tracking(models.Model):
 
     # Fields
     number = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from=['number', 'carrier'], blank=True)
+    slug = AutoSlugField(populate_from=['carrier', 'number'], blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     description = models.TextField(max_length=100,  blank=True)
@@ -104,6 +104,7 @@ class Tracking(models.Model):
         ordering = ('-created_at',)
         verbose_name_plural = _('Trackings')
         verbose_name = _('Tracking')
+        unique_together = ('carrier', 'number')
 
     def __str__(self):
         return '%s' % self.slug

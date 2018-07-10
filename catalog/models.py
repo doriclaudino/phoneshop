@@ -13,7 +13,7 @@ from django.utils.translation import gettext_lazy as _
 class Brand(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -38,7 +38,7 @@ class Brand(models.Model):
 class Model(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -62,7 +62,7 @@ class Model(models.Model):
 class Product(models.Model):
 
     # Fields
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     slug = extension_fields.AutoSlugField(populate_from='name', blank=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -105,6 +105,7 @@ class ProductModel(models.Model):
         ordering = ('-pk',)
         verbose_name_plural = _('Product Models')
         verbose_name = _('Product Model')
+        unique_together = ('product', 'model')
 
     def __str__(self):
         return u'%s' % self.slug
