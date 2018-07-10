@@ -46,7 +46,7 @@ class SlugModel(models.Model):
 
 class SlugName(SlugModel):
     # Fields
-    slug = AutoSlugField(populate_from='name', blank=True)
+    slug = AutoSlugField(populate_from='name', blank=True, unique=True)
     name = models.CharField(max_length=255)
 
     class Meta:

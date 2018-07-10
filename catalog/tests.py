@@ -1,4 +1,5 @@
 import unittest
+import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
 from .models import Brand, Model, Product, ProductModel
@@ -30,21 +31,21 @@ def create_django_contrib_contenttypes_models_contenttype(**kwargs):
 
 def create_brand(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return Brand.objects.create(**defaults)
 
 
 def create_model(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return Model.objects.create(**defaults)
 
 
 def create_product(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     if "brand" not in defaults:
         defaults["brand"] = create_brand()
@@ -77,7 +78,7 @@ class BrandViewTest(unittest.TestCase):
     def test_create_brand(self):
         url = reverse('catalog_brand_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -91,7 +92,7 @@ class BrandViewTest(unittest.TestCase):
     def test_update_brand(self):
         brand = create_brand()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('catalog_brand_update', args=[brand.slug, ])
         response = self.client.post(url, data)
@@ -114,7 +115,7 @@ class ModelViewTest(unittest.TestCase):
     def test_create_model(self):
         url = reverse('catalog_model_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -128,7 +129,7 @@ class ModelViewTest(unittest.TestCase):
     def test_update_model(self):
         model = create_model()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('catalog_model_update', args=[model.slug, ])
         response = self.client.post(url, data)
@@ -151,7 +152,7 @@ class ProductViewTest(unittest.TestCase):
     def test_create_product(self):
         url = reverse('catalog_product_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "brand": create_brand().pk,
         }
         response = self.client.post(url, data=data)
@@ -166,7 +167,7 @@ class ProductViewTest(unittest.TestCase):
     def test_update_product(self):
         product = create_product()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "brand": create_brand().pk,
         }
         url = reverse('catalog_product_update', args=[product.slug, ])

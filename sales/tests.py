@@ -1,4 +1,5 @@
 import unittest
+import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
 from .models import Seller, SellOrderStatus, SellOrder, SellOrderItem
@@ -32,7 +33,7 @@ def create_django_contrib_contenttypes_models_contenttype(**kwargs):
 
 def create_seller(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults["website"] = "website"
     defaults.update(**kwargs)
     return Seller.objects.create(**defaults)
@@ -40,7 +41,7 @@ def create_seller(**kwargs):
 
 def create_sellorderstatus(**kwargs):
     defaults = {}
-    defaults["name"] = "name"
+    defaults["name"] = uuid.uuid4()
     defaults.update(**kwargs)
     return SellOrderStatus.objects.create(**defaults)
 
@@ -86,7 +87,7 @@ class SellerViewTest(unittest.TestCase):
     def test_create_seller(self):
         url = reverse('sales_seller_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "website": "website",
         }
         response = self.client.post(url, data=data)
@@ -101,7 +102,7 @@ class SellerViewTest(unittest.TestCase):
     def test_update_seller(self):
         seller = create_seller()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
             "website": "website",
         }
         url = reverse('sales_seller_update', args=[seller.slug, ])
@@ -125,7 +126,7 @@ class SellOrderStatusViewTest(unittest.TestCase):
     def test_create_sellorderstatus(self):
         url = reverse('sales_sellorderstatus_create')
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -140,7 +141,7 @@ class SellOrderStatusViewTest(unittest.TestCase):
     def test_update_sellorderstatus(self):
         sellorderstatus = create_sellorderstatus()
         data = {
-            "name": "name",
+            "name": uuid.uuid4(),
         }
         url = reverse('sales_sellorderstatus_update',
                       args=[sellorderstatus.slug, ])
