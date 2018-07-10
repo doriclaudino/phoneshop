@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'sales.apps.SalesConfig',
     'purchase.apps.PurchaseConfig',
     'inventory.apps.InventoryConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,8 @@ LANGUAGES = [
 LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'conf\\locale'),
 )
+
+
+# auth
+LOGOUT_REDIRECT_URL = '/home'
+LOGIN_REDIRECT_URL = '/home'
