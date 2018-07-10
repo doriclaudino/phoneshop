@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-08 17:29-0400\n"
+"POT-Creation-Date: 2018-07-10 10:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: DORIVAL CLAUDINO dori.claudino@gmail.com\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,35 +21,35 @@ msgstr ""
 msgid "Catalog"
 msgstr "Catálogo"
 
-#: .\catalog\models.py:24
+#: .\catalog\models.py:17
 msgid "Brands"
 msgstr "Marcas"
 
-#: .\catalog\models.py:25
+#: .\catalog\models.py:18
 msgid "Brand"
 msgstr "Marca"
 
-#: .\catalog\models.py:49
+#: .\catalog\models.py:28
 msgid "Models"
 msgstr "Modelos"
 
-#: .\catalog\models.py:50
+#: .\catalog\models.py:29
 msgid "Model"
 msgstr "Modelo"
 
-#: .\catalog\models.py:78
+#: .\catalog\models.py:43
 msgid "Products"
 msgstr "Produtos"
 
-#: .\catalog\models.py:79
+#: .\catalog\models.py:44
 msgid "Product"
 msgstr "Produto"
 
-#: .\catalog\models.py:106
+#: .\catalog\models.py:61
 msgid "Product Models"
 msgstr "Modelos de produto"
 
-#: .\catalog\models.py:107
+#: .\catalog\models.py:62
 msgid "Product Model"
 msgstr "Modelo de produto"
 
@@ -57,47 +57,47 @@ msgstr "Modelo de produto"
 msgid "Inventory"
 msgstr "Inventario"
 
-#: .\inventory\models.py:26
+#: .\inventory\models.py:19
 msgid "Identifier Types"
 msgstr "Tipos de identificação"
 
-#: .\inventory\models.py:27
+#: .\inventory\models.py:20
 msgid "Identifier Type"
 msgstr "Tipo de identificação"
 
-#: .\inventory\models.py:50
+#: .\inventory\models.py:29
 msgid "Local Types"
 msgstr "Tipos de local"
 
-#: .\inventory\models.py:51
+#: .\inventory\models.py:30
 msgid "Local Type"
 msgstr "Tipo de local"
 
-#: .\inventory\models.py:77
+#: .\inventory\models.py:42
 #, fuzzy
 #| msgid "Locations"
 msgid "Locals"
 msgstr "Locais"
 
-#: .\inventory\models.py:78
+#: .\inventory\models.py:43
 #, fuzzy
 #| msgid "Location"
 msgid "Local"
 msgstr "Local"
 
-#: .\inventory\models.py:105
+#: .\inventory\models.py:60
 msgid "Identifiers"
 msgstr "Identificadores"
 
-#: .\inventory\models.py:106
+#: .\inventory\models.py:61
 msgid "Identifier"
 msgstr "Identificador"
 
-#: .\inventory\models.py:134
+#: .\inventory\models.py:85
 msgid "Items"
 msgstr "Itens"
 
-#: .\inventory\models.py:135
+#: .\inventory\models.py:86
 msgid "Item"
 msgstr "Item"
 
@@ -105,37 +105,46 @@ msgstr "Item"
 msgid "Logistic"
 msgstr "Logística"
 
-#: .\logistic\models.py:24
+#: .\logistic\models.py:17
 msgid "Locations"
 msgstr "Localizações"
 
-#: .\logistic\models.py:25
+#: .\logistic\models.py:18
 msgid "Location"
 msgstr "Localização"
 
-#: .\logistic\models.py:50
+#: .\logistic\models.py:31
 msgid "Carriers"
 msgstr "Transportadoras"
 
-#: .\logistic\models.py:51
+#: .\logistic\models.py:32
 msgid "Carrier"
 msgstr "Transportadora"
 
-#: .\logistic\models.py:74
+#: .\logistic\models.py:41
 msgid "Tracking Statuses"
 msgstr "Situações de rastreamento"
 
-#: .\logistic\models.py:75
+#: .\logistic\models.py:42
 msgid "Tracking Status"
 msgstr "Situação de rastreamento"
 
-#: .\logistic\models.py:105
+#: .\logistic\models.py:62
 msgid "Trackings"
 msgstr "Rastreamentos"
 
-#: .\logistic\models.py:106
+#: .\logistic\models.py:63
 msgid "Tracking"
 msgstr "Rastreamento"
+
+#: .\phoneshop\models.py:77
+msgid "Order Items"
+msgstr "Items da ordem"
+
+#: .\phoneshop\models.py:78
+
+msgid "Order Item"
+msgstr "Item da ordem"
 
 #: .\phoneshop\settings.py:128
 msgid "English"
@@ -149,70 +158,54 @@ msgstr "Portugues"
 msgid "Purchase"
 msgstr "Compra"
 
-#: .\purchase\models.py:27
+#: .\purchase\models.py:21
 msgid "Suppliers"
 msgstr "Fornecedores"
 
-#: .\purchase\models.py:28
+#: .\purchase\models.py:22
 msgid "Supplier"
 msgstr "Fornecedor"
 
-#: .\purchase\models.py:51
+#: .\purchase\models.py:31
 msgid "Purchase Order Statuses"
 msgstr "Situações das ordem de compra"
 
-#: .\purchase\models.py:52
+#: .\purchase\models.py:32
 msgid "Purchase Order Status"
 msgstr "Situação da ordem de compra"
 
-#: .\purchase\models.py:81
+#: .\purchase\models.py:51
 msgid "Purchase Orders"
 msgstr "Ordens de compra"
 
-#: .\purchase\models.py:82
+#: .\purchase\models.py:52
 msgid "Purchase Order"
 msgstr "Ordem de compra"
-
-#: .\purchase\models.py:112
-msgid "Purchase Order Items"
-msgstr "Items da ordem de compra"
-
-#: .\purchase\models.py:113
-msgid "Purchase Order Item"
-msgstr "Item da ordem de compra"
 
 #: .\sales\apps.py:7
 msgid "Sales"
 msgstr "Vendas"
 
-#: .\sales\models.py:27
+#: .\sales\models.py:21
 msgid "Sellers"
 msgstr "Vendedores"
 
-#: .\sales\models.py:28
+#: .\sales\models.py:22
 msgid "Seller"
 msgstr "Vendedor"
 
-#: .\sales\models.py:51
-msgid "Sell Order Statuses"
-msgstr "Situações da ordem de venda"
+#: .\sales\models.py:31
+msgid "Order Status"
+msgstr "Situação da ordem"
 
-#: .\sales\models.py:52
-msgid "Sell Order Status"
-msgstr "Situação da ordem de venda"
+#: .\sales\models.py:32
+msgid "Order Statuses"
+msgstr "Situações da ordem" 
 
-#: .\sales\models.py:81
+#: .\sales\models.py:50
 msgid "Sell Orders"
 msgstr "Ordens de venda"
 
-#: .\sales\models.py:82
+#: .\sales\models.py:51
 msgid "Sell Order"
 msgstr "Ordem de venda"
-
-#: .\sales\models.py:112
-msgid "Sell Order Items"
-msgstr "Items da ordem de venda"
-
-#: .\sales\models.py:113
-msgid "Sell Order Item"
-msgstr "Item da ordem de venda"

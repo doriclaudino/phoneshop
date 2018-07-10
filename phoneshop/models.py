@@ -74,8 +74,8 @@ class SlugOrderItem(SlugModel):
 
     class Meta:
         abstract = True
-        verbose_name_plural = _('Purchase Order Items')
-        verbose_name = _('Purchase Order Item')
+        verbose_name_plural = _('Order Items')
+        verbose_name = _('Order Item')
         unique_together = ('product', 'order')
 
     def save(self, *args, **kwargs):
