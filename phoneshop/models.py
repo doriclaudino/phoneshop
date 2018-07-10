@@ -55,3 +55,30 @@ class SlugName(SlugModel):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         models.Model.save(self, *args, **kwargs)
+
+
+class SlugOrderItem(SlugModel):
+
+    # Fields
+    slug = AutoSlugField(populate_from=['order', 'product'], blank=True)
+    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(
+        max_digits=10, decimal_places=2, default=100.00)
+
+    # Relationship Fields
+    def product(self):
+        raise NotImplementedError('Subclasses must define product')
+
+    def order(self):
+        raise NotImplementedError('Subclasses must define order')
+
+    class Meta:
+        abstract = True
+        verbose_name_plural = _('Purchase Order Items')
+        verbose_name = _('Purchase Order Item')
+        unique_together = ('product', 'order')
+
+    def save(self, *args, **kwargs):
+        name = '{0} {1}'.format(self.order, self.product)
+        self.slug = slugify(name)
+        models.Model.save(self, *args, **kwargs)
