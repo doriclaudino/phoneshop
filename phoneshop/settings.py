@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'purchase.apps.PurchaseConfig',
     'inventory.apps.InventoryConfig',
     'home.apps.HomeConfig',
+    'payments.apps.PaymentsConfig',
 ]
 
 MIDDLEWARE = [
