@@ -42,12 +42,18 @@ class PurchaseOrderAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+class InlineOrderItem(admin.TabularInline):
+    model = PurchaseOrderItem
+    fields = ['order', 'product', 'quantity', 'price']
+    list_display_links = ['product']
+
+
 class PurchaseOrderAdmin(admin.ModelAdmin):
     form = PurchaseOrderAdminForm
     list_display = ['slug', 'details', 'created_at', 'updated_at']
-    fields = ['supplier', 'status', 'tracking',
-              'details', 'slug', 'created_at', 'updated_at']
+    fields = ['supplier', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
+    inlines = [InlineOrderItem, ]
 
 
 admin.site.register(PurchaseOrder, PurchaseOrderAdmin)
