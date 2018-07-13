@@ -27,6 +27,7 @@ urlpatterns = i18n_patterns(
     url(r'^inventory/', include('inventory.urls')),
     url(r'^home/', include('home.urls')),
     url(r'^payments/', include('payments.urls')),
+    url(r'^costs/', include('costs.urls')),
 
 )
 

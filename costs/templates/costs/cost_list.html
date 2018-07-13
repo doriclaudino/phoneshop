@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<p><a class="btn btn-default" href="{% url 'costs_cost_list' %}">Cost Listing</a></p>
+<table class="table">
+<tr>
+<td>ID</td><td>Link</td>
+    <td>slug</td>
+    <td>created_at</td>
+    <td>updated_at</td>
+    <td>amount</td>
+    <td>details</td>
+</tr>
+{% for object in object_list %}
+<tr>
+    <td>{{object.pk}}</td>
+    <td><a href="{{object.get_absolute_url}}">{{object}}</a></td>
+    <td>{{ object.slug }}</td>
+    <td>{{ object.created_at }}</td>
+    <td>{{ object.updated_at }}</td>
+    <td>{{ object.amount }}</td>
+    <td>{{ object.details }}</td>
+</tr>
+{% endfor %}
+</table><a class="btn btn-primary" href="{% url 'costs_cost_create' %}">Create new Cost</a>
+{% endblock %}
