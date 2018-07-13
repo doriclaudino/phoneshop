@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts
+from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
 
 
 class CostTypeAdminForm(forms.ModelForm):
@@ -82,3 +82,19 @@ class ItemCostsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(ItemCosts, ItemCostsAdmin)
+
+
+class TrackingCostsAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = TrackingCosts
+        fields = '__all__'
+
+
+class TrackingCostsAdmin(admin.ModelAdmin):
+    form = TrackingCostsAdminForm
+    list_display = ['slug', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
+
+
+admin.site.register(TrackingCosts, TrackingCostsAdmin)

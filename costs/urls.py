@@ -62,3 +62,16 @@ urlpatterns += (
     url(r'^costs/itemcosts/update/(?P<slug>\S+)/$',
         views.ItemCostsUpdateView.as_view(), name='costs_itemcosts_update'),
 )
+
+
+urlpatterns += (
+    # urls for TrackingCosts
+    url(r'^costs/trackingcosts/$', views.TrackingCostsListView.as_view(),
+        name='costs_trackingcosts_list'),
+    url(r'^costs/trackingcosts/create/$',
+        views.TrackingCostsCreateView.as_view(), name='costs_trackingcosts_create'),
+    url(r'^costs/trackingcosts/detail/(?P<slug>\S+)/$',
+        views.TrackingCostsDetailView.as_view(), name='costs_trackingcosts_detail'),
+    url(r'^costs/trackingcosts/update/(?P<slug>\S+)/$',
+        views.TrackingCostsUpdateView.as_view(), name='costs_trackingcosts_update'),
+)

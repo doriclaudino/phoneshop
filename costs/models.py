@@ -14,6 +14,7 @@ from inventory.models import Item
 from purchase.models import PurchaseOrder
 from sales.models import SellOrder
 from phoneshop.models import SlugName, SlugModel
+from logistic.models import Tracking
 
 
 class CostType(SlugName):
@@ -94,3 +95,11 @@ class ItemCosts(Costs):
     class Meta:
         verbose_name_plural = _('Item Costs')
         verbose_name = _('Item Cost')
+
+
+class TrackingCosts(Costs):
+    ref = models.ForeignKey(Tracking, related_name='+')
+
+    class Meta:
+        verbose_name_plural = _('Tracking Costs')
+        verbose_name = _('Tracking Cost')

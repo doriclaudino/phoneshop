@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts
-from .forms import CostTypeForm, CostForm, PurchaseCostsForm, SellCostsForm, ItemCostsForm
+from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
+from .forms import CostTypeForm, CostForm, PurchaseCostsForm, SellCostsForm, ItemCostsForm, TrackingCostsForm
 
 
 class CostTypeListView(ListView):
@@ -92,3 +92,20 @@ class ItemCostsUpdateView(UpdateView):
     model = ItemCosts
     form_class = ItemCostsForm
 
+
+class TrackingCostsListView(ListView):
+    model = TrackingCosts
+
+
+class TrackingCostsCreateView(CreateView):
+    model = TrackingCosts
+    form_class = TrackingCostsForm
+
+
+class TrackingCostsDetailView(DetailView):
+    model = TrackingCosts
+
+
+class TrackingCostsUpdateView(UpdateView):
+    model = TrackingCosts
+    form_class = TrackingCostsForm

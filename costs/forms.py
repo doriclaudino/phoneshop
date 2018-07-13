@@ -1,5 +1,5 @@
 from django import forms
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts
+from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
 
 
 class CostTypeForm(forms.ModelForm):
@@ -29,4 +29,10 @@ class SellCostsForm(forms.ModelForm):
 class ItemCostsForm(forms.ModelForm):
     class Meta:
         model = ItemCosts
+        fields = ['ref', 'cost']
+
+
+class TrackingCostsForm(forms.ModelForm):
+    class Meta:
+        model = TrackingCosts
         fields = ['ref', 'cost']
