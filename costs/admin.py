@@ -45,7 +45,7 @@ class ItemCostAdminForm(forms.ModelForm):
 
 class ItemCostAdmin(admin.ModelAdmin):
     form = ItemCostAdminForm
-    fields = ['type', 'payment', 'details']
+    fields = ['ref', 'type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
@@ -62,7 +62,7 @@ class SellCostAdminForm(forms.ModelForm):
 
 class SellCostAdmin(admin.ModelAdmin):
     form = SellCostAdminForm
-    fields = ['type', 'payment', 'details']
+    fields = ['ref', 'type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
@@ -79,7 +79,7 @@ class TrackingCostAdminForm(forms.ModelForm):
 
 class TrackingCostAdmin(admin.ModelAdmin):
     form = TrackingCostAdminForm
-    fields = ['type', 'payment', 'details']
+    fields = ['ref', 'type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 

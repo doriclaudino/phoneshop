@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Seller, SellOrderStatus, SellOrder, SellOrderItem
-
+from costs.models import SellCost
 
 class SellerAdminForm(forms.ModelForm):
 
@@ -41,6 +41,11 @@ class InlineOrderItem(admin.TabularInline):
     list_display_links = ['product']
 
 
+class InlineOrderItemCost(admin.TabularInline):
+    model = SellCost
+    fields = ['type', 'details', 'payment']
+
+
 class SellOrderAdminForm(forms.ModelForm):
 
     class Meta:
@@ -53,7 +58,7 @@ class SellOrderAdmin(admin.ModelAdmin):
     list_display = ['slug', 'details', 'created_at', 'updated_at']
     fields = ['seller', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
-    inlines = [InlineOrderItem, ]
+    inlines = [InlineOrderItem, InlineOrderItemCost]
 
 
 admin.site.register(SellOrder, SellOrderAdmin)
