@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Supplier, PurchaseOrderStatus, PurchaseOrder, PurchaseOrderItem
+from costs.models import PurchaseCosts
 
 
 class SupplierAdminForm(forms.ModelForm):
@@ -48,12 +49,17 @@ class InlineOrderItem(admin.TabularInline):
     list_display_links = ['product']
 
 
+class InlineOrderItemCost(admin.TabularInline):
+    model = PurchaseCosts
+    fields = ['type', 'details', 'payment']
+
+
 class PurchaseOrderAdmin(admin.ModelAdmin):
     form = PurchaseOrderAdminForm
     list_display = ['slug', 'details', 'created_at', 'updated_at']
     fields = ['supplier', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
-    inlines = [InlineOrderItem, ]
+    inlines = [InlineOrderItem, InlineOrderItemCost]
 
 
 admin.site.register(PurchaseOrder, PurchaseOrderAdmin)

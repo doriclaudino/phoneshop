@@ -73,12 +73,29 @@ class Costs(SlugModel):
         models.Model.save(self, *args, **kwargs)
 
 
-class PurchaseCosts(Costs):
+class PurchaseCosts(SlugModel):
+
+    # Fields
+    slug = extension_fields.AutoSlugField(
+        populate_from=['type', 'payment'], blank=True)
+    details = models.CharField(max_length=100, blank=True)
+
+    # Relationship Fields
+    type = models.ForeignKey(CostType, related_name='+')
+    payment = models.ForeignKey(Payment, related_name='+', blank=True)
     ref = models.ForeignKey(PurchaseOrder, related_name='+')
 
     class Meta:
         verbose_name_plural = _('Purchase Costs')
         verbose_name = _('Purchase Cost')
+
+    def get_package_name(self):
+        return __package__
+
+    def save(self, *args, **kwargs):
+        name = '{0} {1}'.format(self.type, self.payment)
+        self.slug = slugify(name)
+        models.Model.save(self, *args, **kwargs)
 
 
 class SellCosts(Costs):

@@ -17,7 +17,7 @@ class CostForm(forms.ModelForm):
 class PurchaseCostsForm(forms.ModelForm):
     class Meta:
         model = PurchaseCosts
-        fields = ['ref', 'cost']
+        fields = []
 
 
 class SellCostsForm(forms.ModelForm):
