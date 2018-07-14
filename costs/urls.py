@@ -3,7 +3,6 @@ from django.conf.urls import url, include
 
 from . import views
 
-
 urlpatterns = (
     # urls for CostType
     url(r'^costs/costtype/$', views.CostTypeListView.as_view(),
@@ -17,61 +16,49 @@ urlpatterns = (
 )
 
 urlpatterns += (
-    # urls for Cost
-    url(r'^costs/cost/$', views.CostListView.as_view(), name='costs_cost_list'),
-    url(r'^costs/cost/create/$', views.CostCreateView.as_view(),
-        name='costs_cost_create'),
-    url(r'^costs/cost/detail/(?P<slug>\S+)/$',
-        views.CostDetailView.as_view(), name='costs_cost_detail'),
-    url(r'^costs/cost/update/(?P<slug>\S+)/$',
-        views.CostUpdateView.as_view(), name='costs_cost_update'),
+    # urls for PurchaseCost
+    url(r'^costs/purchasecost/$', views.PurchaseCostListView.as_view(),
+        name='costs_purchasecost_list'),
+    url(r'^costs/purchasecost/create/$',
+        views.PurchaseCostCreateView.as_view(), name='costs_purchasecost_create'),
+    url(r'^costs/purchasecost/detail/(?P<slug>\S+)/$',
+        views.PurchaseCostDetailView.as_view(), name='costs_purchasecost_detail'),
+    url(r'^costs/purchasecost/update/(?P<slug>\S+)/$',
+        views.PurchaseCostUpdateView.as_view(), name='costs_purchasecost_update'),
 )
 
 urlpatterns += (
-    # urls for PurchaseCosts
-    url(r'^costs/purchasecosts/$', views.PurchaseCostsListView.as_view(),
-        name='costs_purchasecosts_list'),
-    url(r'^costs/purchasecosts/create/$',
-        views.PurchaseCostsCreateView.as_view(), name='costs_purchasecosts_create'),
-    url(r'^costs/purchasecosts/detail/(?P<slug>\S+)/$',
-        views.PurchaseCostsDetailView.as_view(), name='costs_purchasecosts_detail'),
-    url(r'^costs/purchasecosts/update/(?P<slug>\S+)/$',
-        views.PurchaseCostsUpdateView.as_view(), name='costs_purchasecosts_update'),
+    # urls for ItemCost
+    url(r'^costs/itemcost/$', views.ItemCostListView.as_view(),
+        name='costs_itemcost_list'),
+    url(r'^costs/itemcost/create/$', views.ItemCostCreateView.as_view(),
+        name='costs_itemcost_create'),
+    url(r'^costs/itemcost/detail/(?P<slug>\S+)/$',
+        views.ItemCostDetailView.as_view(), name='costs_itemcost_detail'),
+    url(r'^costs/itemcost/update/(?P<slug>\S+)/$',
+        views.ItemCostUpdateView.as_view(), name='costs_itemcost_update'),
 )
 
 urlpatterns += (
-    # urls for SellCosts
-    url(r'^costs/sellcosts/$', views.SellCostsListView.as_view(),
-        name='costs_sellcosts_list'),
-    url(r'^costs/sellcosts/create/$', views.SellCostsCreateView.as_view(),
-        name='costs_sellcosts_create'),
-    url(r'^costs/sellcosts/detail/(?P<slug>\S+)/$',
-        views.SellCostsDetailView.as_view(), name='costs_sellcosts_detail'),
-    url(r'^costs/sellcosts/update/(?P<slug>\S+)/$',
-        views.SellCostsUpdateView.as_view(), name='costs_sellcosts_update'),
+    # urls for SellCost
+    url(r'^costs/sellcost/$', views.SellCostListView.as_view(),
+        name='costs_sellcost_list'),
+    url(r'^costs/sellcost/create/$', views.SellCostCreateView.as_view(),
+        name='costs_sellcost_create'),
+    url(r'^costs/sellcost/detail/(?P<slug>\S+)/$',
+        views.SellCostDetailView.as_view(), name='costs_sellcost_detail'),
+    url(r'^costs/sellcost/update/(?P<slug>\S+)/$',
+        views.SellCostUpdateView.as_view(), name='costs_sellcost_update'),
 )
 
 urlpatterns += (
-    # urls for ItemCosts
-    url(r'^costs/itemcosts/$', views.ItemCostsListView.as_view(),
-        name='costs_itemcosts_list'),
-    url(r'^costs/itemcosts/create/$', views.ItemCostsCreateView.as_view(),
-        name='costs_itemcosts_create'),
-    url(r'^costs/itemcosts/detail/(?P<slug>\S+)/$',
-        views.ItemCostsDetailView.as_view(), name='costs_itemcosts_detail'),
-    url(r'^costs/itemcosts/update/(?P<slug>\S+)/$',
-        views.ItemCostsUpdateView.as_view(), name='costs_itemcosts_update'),
-)
-
-
-urlpatterns += (
-    # urls for TrackingCosts
-    url(r'^costs/trackingcosts/$', views.TrackingCostsListView.as_view(),
-        name='costs_trackingcosts_list'),
-    url(r'^costs/trackingcosts/create/$',
-        views.TrackingCostsCreateView.as_view(), name='costs_trackingcosts_create'),
-    url(r'^costs/trackingcosts/detail/(?P<slug>\S+)/$',
-        views.TrackingCostsDetailView.as_view(), name='costs_trackingcosts_detail'),
-    url(r'^costs/trackingcosts/update/(?P<slug>\S+)/$',
-        views.TrackingCostsUpdateView.as_view(), name='costs_trackingcosts_update'),
+    # urls for TrackingCost
+    url(r'^costs/trackingcost/$', views.TrackingCostListView.as_view(),
+        name='costs_trackingcost_list'),
+    url(r'^costs/trackingcost/create/$',
+        views.TrackingCostCreateView.as_view(), name='costs_trackingcost_create'),
+    url(r'^costs/trackingcost/detail/(?P<slug>\S+)/$',
+        views.TrackingCostDetailView.as_view(), name='costs_trackingcost_detail'),
+    url(r'^costs/trackingcost/update/(?P<slug>\S+)/$',
+        views.TrackingCostUpdateView.as_view(), name='costs_trackingcost_update'),
 )

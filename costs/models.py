@@ -32,15 +32,14 @@ class Cost(SlugModel):
     # Fields
     slug = extension_fields.AutoSlugField(
         populate_from=['type', 'payment'], blank=True)
-    details = models.TextField(max_length=400, blank=True)
+    details = models.CharField(max_length=100, blank=True)
 
     # Relationship Fields
     type = models.ForeignKey(CostType, related_name='+')
     payment = models.ForeignKey(Payment, related_name='+', blank=True)
 
     class Meta:
-        verbose_name_plural = _('Costs')
-        verbose_name = _('Cost')
+        abstract = True
 
     def get_package_name(self):
         return __package__
@@ -51,54 +50,15 @@ class Cost(SlugModel):
         models.Model.save(self, *args, **kwargs)
 
 
-class Costs(SlugModel):
-    # Fields
-    slug = extension_fields.AutoSlugField(
-        populate_from=['ref', 'cost'], blank=True)
-
-    # Relationship Fields
-    ref = ''
-    cost = models.ForeignKey(Cost, related_name='+', blank=True)
-
-    class Meta:
-        verbose_name_plural = _('Costs')
-        verbose_name = _('Cost')
-
-    def get_package_name(self):
-        return __package__
-
-    def save(self, *args, **kwargs):
-        name = '{0} {1}'.format(self.ref, self.cost)
-        self.slug = slugify(name)
-        models.Model.save(self, *args, **kwargs)
-
-
-class PurchaseCosts(SlugModel):
-
-    # Fields
-    slug = extension_fields.AutoSlugField(
-        populate_from=['type', 'payment'], blank=True)
-    details = models.CharField(max_length=100, blank=True)
-
-    # Relationship Fields
-    type = models.ForeignKey(CostType, related_name='+')
-    payment = models.ForeignKey(Payment, related_name='+', blank=True)
+class PurchaseCost(Cost):
     ref = models.ForeignKey(PurchaseOrder, related_name='+')
 
     class Meta:
         verbose_name_plural = _('Purchase Costs')
         verbose_name = _('Purchase Cost')
 
-    def get_package_name(self):
-        return __package__
 
-    def save(self, *args, **kwargs):
-        name = '{0} {1}'.format(self.type, self.payment)
-        self.slug = slugify(name)
-        models.Model.save(self, *args, **kwargs)
-
-
-class SellCosts(Costs):
+class SellCost(Cost):
     ref = models.ForeignKey(SellOrder, related_name='+')
 
     class Meta:
@@ -106,7 +66,7 @@ class SellCosts(Costs):
         verbose_name = _('Sell Cost')
 
 
-class ItemCosts(Costs):
+class ItemCost(Cost):
     ref = models.ForeignKey(Item, related_name='+')
 
     class Meta:
@@ -114,7 +74,7 @@ class ItemCosts(Costs):
         verbose_name = _('Item Cost')
 
 
-class TrackingCosts(Costs):
+class TrackingCost(Cost):
     ref = models.ForeignKey(Tracking, related_name='+')
 
     class Meta:

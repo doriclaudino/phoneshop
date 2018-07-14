@@ -1,5 +1,5 @@
 from django import forms
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
+from .models import CostType, PurchaseCost, ItemCost, SellCost, TrackingCost
 
 
 class CostTypeForm(forms.ModelForm):
@@ -8,31 +8,25 @@ class CostTypeForm(forms.ModelForm):
         fields = ['name']
 
 
-class CostForm(forms.ModelForm):
+class PurchaseCostForm(forms.ModelForm):
     class Meta:
-        model = Cost
-        fields = ['details', 'type', 'payment']
+        model = PurchaseCost
+        fields = ['payment', 'ref', 'type']
 
 
-class PurchaseCostsForm(forms.ModelForm):
+class ItemCostForm(forms.ModelForm):
     class Meta:
-        model = PurchaseCosts
-        fields = []
+        model = ItemCost
+        fields = ['payment', 'ref', 'type']
 
 
-class SellCostsForm(forms.ModelForm):
+class SellCostForm(forms.ModelForm):
     class Meta:
-        model = SellCosts
-        fields = ['ref', 'cost']
+        model = SellCost
+        fields = ['payment', 'ref', 'type']
 
 
-class ItemCostsForm(forms.ModelForm):
+class TrackingCostForm(forms.ModelForm):
     class Meta:
-        model = ItemCosts
-        fields = ['ref', 'cost']
-
-
-class TrackingCostsForm(forms.ModelForm):
-    class Meta:
-        model = TrackingCosts
-        fields = ['ref', 'cost']
+        model = TrackingCost
+        fields = ['payment', 'ref', 'type']

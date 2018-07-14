@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
-from .forms import CostTypeForm, CostForm, PurchaseCostsForm, SellCostsForm, ItemCostsForm, TrackingCostsForm
+from .models import CostType, PurchaseCost, ItemCost, SellCost, TrackingCost
+from .forms import CostTypeForm, PurchaseCostForm, ItemCostForm, SellCostForm, TrackingCostForm
 
 
 class CostTypeListView(ListView):
@@ -21,91 +21,74 @@ class CostTypeUpdateView(UpdateView):
     form_class = CostTypeForm
 
 
-class CostListView(ListView):
-    model = Cost
+class PurchaseCostListView(ListView):
+    model = PurchaseCost
 
 
-class CostCreateView(CreateView):
-    model = Cost
-    form_class = CostForm
+class PurchaseCostCreateView(CreateView):
+    model = PurchaseCost
+    form_class = PurchaseCostForm
 
 
-class CostDetailView(DetailView):
-    model = Cost
+class PurchaseCostDetailView(DetailView):
+    model = PurchaseCost
 
 
-class CostUpdateView(UpdateView):
-    model = Cost
-    form_class = CostForm
+class PurchaseCostUpdateView(UpdateView):
+    model = PurchaseCost
+    form_class = PurchaseCostForm
 
 
-class PurchaseCostsListView(ListView):
-    model = PurchaseCosts
+class ItemCostListView(ListView):
+    model = ItemCost
 
 
-class PurchaseCostsCreateView(CreateView):
-    model = PurchaseCosts
-    form_class = PurchaseCostsForm
+class ItemCostCreateView(CreateView):
+    model = ItemCost
+    form_class = ItemCostForm
 
 
-class PurchaseCostsDetailView(DetailView):
-    model = PurchaseCosts
+class ItemCostDetailView(DetailView):
+    model = ItemCost
 
 
-class PurchaseCostsUpdateView(UpdateView):
-    model = PurchaseCosts
-    form_class = PurchaseCostsForm
+class ItemCostUpdateView(UpdateView):
+    model = ItemCost
+    form_class = ItemCostForm
 
 
-class SellCostsListView(ListView):
-    model = SellCosts
+class SellCostListView(ListView):
+    model = SellCost
 
 
-class SellCostsCreateView(CreateView):
-    model = SellCosts
-    form_class = SellCostsForm
+class SellCostCreateView(CreateView):
+    model = SellCost
+    form_class = SellCostForm
 
 
-class SellCostsDetailView(DetailView):
-    model = SellCosts
+class SellCostDetailView(DetailView):
+    model = SellCost
 
 
-class SellCostsUpdateView(UpdateView):
-    model = SellCosts
-    form_class = SellCostsForm
+class SellCostUpdateView(UpdateView):
+    model = SellCost
+    form_class = SellCostForm
 
 
-class ItemCostsListView(ListView):
-    model = ItemCosts
+class TrackingCostListView(ListView):
+    model = TrackingCost
 
 
-class ItemCostsCreateView(CreateView):
-    model = ItemCosts
-    form_class = ItemCostsForm
+class TrackingCostCreateView(CreateView):
+    model = TrackingCost
+    form_class = TrackingCostForm
 
 
-class ItemCostsDetailView(DetailView):
-    model = ItemCosts
+class TrackingCostDetailView(DetailView):
+    model = TrackingCost
 
 
-class ItemCostsUpdateView(UpdateView):
-    model = ItemCosts
-    form_class = ItemCostsForm
+class TrackingCostUpdateView(UpdateView):
+    model = TrackingCost
+    form_class = TrackingCostForm
 
-
-class TrackingCostsListView(ListView):
-    model = TrackingCosts
-
-
-class TrackingCostsCreateView(CreateView):
-    model = TrackingCosts
-    form_class = TrackingCostsForm
-
-
-class TrackingCostsDetailView(DetailView):
-    model = TrackingCosts
-
-
-class TrackingCostsUpdateView(UpdateView):
-    model = TrackingCosts
-    form_class = TrackingCostsForm

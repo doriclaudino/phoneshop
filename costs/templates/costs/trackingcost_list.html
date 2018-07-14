@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'costs_itemcosts_list' %}">ItemCosts Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'costs_trackingcost_list' %}">TrackingCost Listing</a></p>
 <table class="table">
 <tr>
 <td>ID</td><td>Link</td>
@@ -18,5 +18,5 @@
     <td>{{ object.updated_at }}</td>
 </tr>
 {% endfor %}
-</table><a class="btn btn-primary" href="{% url 'costs_itemcosts_create' %}">Create new ItemCosts</a>
+</table><a class="btn btn-primary" href="{% url 'costs_trackingcost_create' %}">Create new TrackingCost</a>
 {% endblock %}

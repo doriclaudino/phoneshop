@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'costs_cost_list' %}">Cost Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'costs_purchasecost_list' %}">PurchaseCost Listing</a></p>
 <table class="table">
 <tr><td>slug</td><td>{{ object.slug }}</td></tr>
 <tr><td>created_at</td><td>{{ object.created_at }}</td></tr>
 <tr><td>updated_at</td><td>{{ object.updated_at }}</td></tr>
-<tr><td>amount</td><td>{{ object.amount }}</td></tr>
-<tr><td>details</td><td>{{ object.details }}</td></tr>
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Cost</a>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit PurchaseCost</a>
 
 {% endblock %}

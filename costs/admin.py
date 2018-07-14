@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
+from .models import CostType, PurchaseCost, ItemCost, SellCost, TrackingCost
 
 
 class CostTypeAdminForm(forms.ModelForm):
@@ -12,89 +12,76 @@ class CostTypeAdminForm(forms.ModelForm):
 
 class CostTypeAdmin(admin.ModelAdmin):
     form = CostTypeAdminForm
-    list_display = ['name', 'slug', 'created_at', 'updated_at']
+    list_display = ['name']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
 admin.site.register(CostType, CostTypeAdmin)
 
 
-class CostAdminForm(forms.ModelForm):
+class PurchaseCostAdminForm(forms.ModelForm):
 
     class Meta:
-        model = Cost
+        model = PurchaseCost
         fields = '__all__'
 
 
-class CostAdmin(admin.ModelAdmin):
-    form = CostAdminForm
-    fields = ['type', 'payment', 'details', 'slug', 'created_at', 'updated_at']
-    list_display = ['slug', 'created_at', 'updated_at', 'details']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
-
-
-admin.site.register(Cost, CostAdmin)
-
-
-class PurchaseCostsAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = PurchaseCosts
-        fields = '__all__'
-
-
-class PurchaseCostsAdmin(admin.ModelAdmin):
-    form = PurchaseCostsAdminForm
+class PurchaseCostAdmin(admin.ModelAdmin):
+    form = PurchaseCostAdminForm
+    fields = ['type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
-admin.site.register(PurchaseCosts, PurchaseCostsAdmin)
+admin.site.register(PurchaseCost, PurchaseCostAdmin)
 
 
-class SellCostsAdminForm(forms.ModelForm):
+class ItemCostAdminForm(forms.ModelForm):
 
     class Meta:
-        model = SellCosts
+        model = ItemCost
         fields = '__all__'
 
 
-class SellCostsAdmin(admin.ModelAdmin):
-    form = SellCostsAdminForm
+class ItemCostAdmin(admin.ModelAdmin):
+    form = ItemCostAdminForm
+    fields = ['type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
-admin.site.register(SellCosts, SellCostsAdmin)
+admin.site.register(ItemCost, ItemCostAdmin)
 
 
-class ItemCostsAdminForm(forms.ModelForm):
+class SellCostAdminForm(forms.ModelForm):
 
     class Meta:
-        model = ItemCosts
+        model = SellCost
         fields = '__all__'
 
 
-class ItemCostsAdmin(admin.ModelAdmin):
-    form = ItemCostsAdminForm
+class SellCostAdmin(admin.ModelAdmin):
+    form = SellCostAdminForm
+    fields = ['type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
-admin.site.register(ItemCosts, ItemCostsAdmin)
+admin.site.register(SellCost, SellCostAdmin)
 
 
-class TrackingCostsAdminForm(forms.ModelForm):
+class TrackingCostAdminForm(forms.ModelForm):
 
     class Meta:
-        model = TrackingCosts
+        model = TrackingCost
         fields = '__all__'
 
 
-class TrackingCostsAdmin(admin.ModelAdmin):
-    form = TrackingCostsAdminForm
+class TrackingCostAdmin(admin.ModelAdmin):
+    form = TrackingCostAdminForm
+    fields = ['type', 'payment', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
-admin.site.register(TrackingCosts, TrackingCostsAdmin)
+admin.site.register(TrackingCost, TrackingCostAdmin)

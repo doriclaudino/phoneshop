@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import Supplier, PurchaseOrderStatus, PurchaseOrder, PurchaseOrderItem
-from costs.models import PurchaseCosts
+from costs.models import PurchaseCost
 
 
 class SupplierAdminForm(forms.ModelForm):
@@ -50,7 +50,7 @@ class InlineOrderItem(admin.TabularInline):
 
 
 class InlineOrderItemCost(admin.TabularInline):
-    model = PurchaseCosts
+    model = PurchaseCost
     fields = ['type', 'details', 'payment']
 
 

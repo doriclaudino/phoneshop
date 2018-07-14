@@ -2,7 +2,7 @@ import unittest
 import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
-from .models import CostType, Cost, PurchaseCosts, SellCosts, ItemCosts, TrackingCosts
+from .models import CostType, PurchaseCost, ItemCost, SellCost, TrackingCost
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -16,59 +16,61 @@ from logistic.tests import create_tracking
 def create_costtype(**kwargs):
     defaults = {}
     defaults["name"] = "name"
+    defaults["slug"] = "slug"
     defaults.update(**kwargs)
     return CostType.objects.create(**defaults)
 
 
-def create_cost(**kwargs):
+def create_purchasecost(**kwargs):
     defaults = {}
-    defaults["details"] = "details"
+    defaults["slug"] = "slug"
     defaults.update(**kwargs)
-    if "type" not in defaults:
-        defaults["type"] = create_costtype()
     if "payment" not in defaults:
         defaults["payment"] = create_payment()
-    return Cost.objects.create(**defaults)
-
-
-def create_purchasecosts(**kwargs):
-    defaults = {}
-    defaults.update(**kwargs)
     if "ref" not in defaults:
         defaults["ref"] = create_purchaseorder()
-    if "cost" not in defaults:
-        defaults["cost"] = create_cost()
-    return PurchaseCosts.objects.create(**defaults)
+    if "type" not in defaults:
+        defaults["type"] = create_costtype()
+    return PurchaseCost.objects.create(**defaults)
 
 
-def create_sellcosts(**kwargs):
+def create_itemcost(**kwargs):
     defaults = {}
+    defaults["slug"] = "slug"
     defaults.update(**kwargs)
-    if "ref" not in defaults:
-        defaults["ref"] = create_sellorder()
-    if "cost" not in defaults:
-        defaults["cost"] = create_cost()
-    return SellCosts.objects.create(**defaults)
-
-
-def create_itemcosts(**kwargs):
-    defaults = {}
-    defaults.update(**kwargs)
+    if "payment" not in defaults:
+        defaults["payment"] = create_payment()
     if "ref" not in defaults:
         defaults["ref"] = create_item()
-    if "cost" not in defaults:
-        defaults["cost"] = create_cost()
-    return ItemCosts.objects.create(**defaults)
+    if "type" not in defaults:
+        defaults["type"] = create_costtype()
+    return ItemCost.objects.create(**defaults)
 
 
-def create_trackingcosts(**kwargs):
+def create_sellcost(**kwargs):
     defaults = {}
+    defaults["slug"] = "slug"
     defaults.update(**kwargs)
+    if "payment" not in defaults:
+        defaults["payment"] = create_payment()
+    if "ref" not in defaults:
+        defaults["ref"] = create_sellorder()
+    if "type" not in defaults:
+        defaults["type"] = create_costtype()
+    return SellCost.objects.create(**defaults)
+
+
+def create_trackingcost(**kwargs):
+    defaults = {}
+    defaults["slug"] = "slug"
+    defaults.update(**kwargs)
+    if "payment" not in defaults:
+        defaults["payment"] = create_payment()
     if "ref" not in defaults:
         defaults["ref"] = create_tracking()
-    if "cost" not in defaults:
-        defaults["cost"] = create_cost()
-    return TrackingCosts.objects.create(**defaults)
+    if "type" not in defaults:
+        defaults["type"] = create_costtype()
+    return TrackingCost.objects.create(**defaults)
 
 
 class CostTypeViewTest(unittest.TestCase):
@@ -88,6 +90,7 @@ class CostTypeViewTest(unittest.TestCase):
         url = reverse('costs_costtype_create')
         data = {
             "name": "name",
+            "slug": "slug",
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -102,208 +105,180 @@ class CostTypeViewTest(unittest.TestCase):
         costtype = create_costtype()
         data = {
             "name": uuid.uuid4(),
+            "slug": "slug",
         }
         url = reverse('costs_costtype_update', args=[costtype.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
 
-class CostViewTest(unittest.TestCase):
+class PurchaseCostViewTest(unittest.TestCase):
     '''
-    Tests for Cost
+    Tests for PurchaseCost
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_cost(self):
-        url = reverse('costs_cost_list')
+    def test_list_purchasecost(self):
+        url = reverse('costs_purchasecost_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_cost(self):
-        url = reverse('costs_cost_create')
+    def test_create_purchasecost(self):
+        url = reverse('costs_purchasecost_create')
         data = {
-            "details": "details",
-            "type": create_costtype().pk,
+            "slug": "slug",
             "payment": create_payment().pk,
-        }
-        response = self.client.post(url, data=data)
-        self.assertEqual(response.status_code, 302)
-
-    def test_detail_cost(self):
-        cost = create_cost()
-        url = reverse('costs_cost_detail', args=[cost.slug, ])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_update_cost(self):
-        cost = create_cost()
-        data = {
-            "details": "details",
+            "ref": create_purchaseorder().pk,
             "type": create_costtype().pk,
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_detail_purchasecost(self):
+        purchasecost = create_purchasecost()
+        url = reverse('costs_purchasecost_detail', args=[purchasecost.slug, ])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_purchasecost(self):
+        purchasecost = create_purchasecost()
+        data = {
+            "slug": "slug",
             "payment": create_payment().pk,
-        }
-        url = reverse('costs_cost_update', args=[cost.slug, ])
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 302)
-
-
-class PurchaseCostsViewTest(unittest.TestCase):
-    '''
-    Tests for PurchaseCosts
-    '''
-
-    def setUp(self):
-        self.client = Client()
-
-    def test_list_purchasecosts(self):
-        url = reverse('costs_purchasecosts_list')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_create_purchasecosts(self):
-        url = reverse('costs_purchasecosts_create')
-        data = {
             "ref": create_purchaseorder().pk,
-            "cost": create_cost().pk,
+            "type": create_costtype().pk,
         }
-        response = self.client.post(url, data=data)
-        self.assertEqual(response.status_code, 302)
-
-    def test_detail_purchasecosts(self):
-        purchasecosts = create_purchasecosts()
-        url = reverse('costs_purchasecosts_detail',
-                      args=[purchasecosts.slug, ])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_update_purchasecosts(self):
-        purchasecosts = create_purchasecosts()
-        data = {
-            "ref": create_purchaseorder().pk,
-            "cost": create_cost().pk,
-        }
-        url = reverse('costs_purchasecosts_update',
-                      args=[purchasecosts.slug, ])
+        url = reverse('costs_purchasecost_update', args=[purchasecost.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
 
-class SellCostsViewTest(unittest.TestCase):
+class ItemCostViewTest(unittest.TestCase):
     '''
-    Tests for SellCosts
+    Tests for ItemCost
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_sellcosts(self):
-        url = reverse('costs_sellcosts_list')
+    def test_list_itemcost(self):
+        url = reverse('costs_itemcost_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_sellcosts(self):
-        url = reverse('costs_sellcosts_create')
+    def test_create_itemcost(self):
+        url = reverse('costs_itemcost_create')
         data = {
-            "ref": create_sellorder().pk,
-            "cost": create_cost().pk,
-        }
-        response = self.client.post(url, data=data)
-        self.assertEqual(response.status_code, 302)
-
-    def test_detail_sellcosts(self):
-        sellcosts = create_sellcosts()
-        url = reverse('costs_sellcosts_detail', args=[sellcosts.slug, ])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_update_sellcosts(self):
-        sellcosts = create_sellcosts()
-        data = {
-            "ref": create_sellorder().pk,
-            "cost": create_cost().pk,
-        }
-        url = reverse('costs_sellcosts_update', args=[sellcosts.slug, ])
-        response = self.client.post(url, data)
-        self.assertEqual(response.status_code, 302)
-
-
-class ItemCostsViewTest(unittest.TestCase):
-    '''
-    Tests for ItemCosts
-    '''
-
-    def setUp(self):
-        self.client = Client()
-
-    def test_list_itemcosts(self):
-        url = reverse('costs_itemcosts_list')
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
-
-    def test_create_itemcosts(self):
-        url = reverse('costs_itemcosts_create')
-        data = {
+            "slug": "slug",
+            "payment": create_payment().pk,
             "ref": create_item().pk,
-            "cost": create_cost().pk,
+            "type": create_costtype().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_itemcosts(self):
-        itemcosts = create_itemcosts()
-        url = reverse('costs_itemcosts_detail', args=[itemcosts.slug, ])
+    def test_detail_itemcost(self):
+        itemcost = create_itemcost()
+        url = reverse('costs_itemcost_detail', args=[itemcost.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_itemcosts(self):
-        itemcosts = create_itemcosts()
+    def test_update_itemcost(self):
+        itemcost = create_itemcost()
         data = {
+            "slug": "slug",
+            "payment": create_payment().pk,
             "ref": create_item().pk,
-            "cost": create_cost().pk,
+            "type": create_costtype().pk,
         }
-        url = reverse('costs_itemcosts_update', args=[itemcosts.slug, ])
+        url = reverse('costs_itemcost_update', args=[itemcost.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
 
-class TrackingCostsViewTest(unittest.TestCase):
+class SellCostViewTest(unittest.TestCase):
     '''
-    Tests for TrackingCosts
+    Tests for SellCost
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_trackingcosts(self):
-        url = reverse('costs_trackingcosts_list')
+    def test_list_sellcost(self):
+        url = reverse('costs_sellcost_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_trackingcosts(self):
-        url = reverse('costs_trackingcosts_create')
+    def test_create_sellcost(self):
+        url = reverse('costs_sellcost_create')
         data = {
-            "ref": create_tracking().pk,
-            "cost": create_cost().pk,
+            "slug": "slug",
+            "payment": create_payment().pk,
+            "ref": create_sellorder().pk,
+            "type": create_costtype().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_trackingcosts(self):
-        trackingcosts = create_trackingcosts()
-        url = reverse('costs_trackingcosts_detail',
-                      args=[trackingcosts.slug, ])
+    def test_detail_sellcost(self):
+        sellcost = create_sellcost()
+        url = reverse('costs_sellcost_detail', args=[sellcost.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_trackingcosts(self):
-        trackingcosts = create_trackingcosts()
+    def test_update_sellcost(self):
+        sellcost = create_sellcost()
         data = {
-            "ref": create_tracking().pk,
-            "cost": create_cost().pk,
+            "slug": "slug",
+            "payment": create_payment().pk,
+            "ref": create_sellorder().pk,
+            "type": create_costtype().pk,
         }
-        url = reverse('costs_trackingcosts_update',
-                      args=[trackingcosts.slug, ])
+        url = reverse('costs_sellcost_update', args=[sellcost.slug, ])
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+
+class TrackingCostViewTest(unittest.TestCase):
+    '''
+    Tests for TrackingCost
+    '''
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_list_trackingcost(self):
+        url = reverse('costs_trackingcost_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_trackingcost(self):
+        url = reverse('costs_trackingcost_create')
+        data = {
+            "slug": "slug",
+            "payment": create_payment().pk,
+            "ref": create_tracking().pk,
+            "type": create_costtype().pk,
+        }
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_detail_trackingcost(self):
+        trackingcost = create_trackingcost()
+        url = reverse('costs_trackingcost_detail', args=[trackingcost.slug, ])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_trackingcost(self):
+        trackingcost = create_trackingcost()
+        data = {
+            "slug": "slug",
+            "payment": create_payment().pk,
+            "ref": create_tracking().pk,
+            "type": create_costtype().pk,
+        }
+        url = reverse('costs_trackingcost_update', args=[trackingcost.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)

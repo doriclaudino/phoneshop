@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'costs_itemcosts_list' %}">ItemCosts Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'costs_purchasecost_list' %}">PurchaseCost Listing</a></p>
 <form method="post">
 {% csrf_token %}
 {{form|crispy}}
