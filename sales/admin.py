@@ -35,6 +35,12 @@ class SellOrderStatusAdmin(admin.ModelAdmin):
 admin.site.register(SellOrderStatus, SellOrderStatusAdmin)
 
 
+class InlineOrderItem(admin.TabularInline):
+    model = SellOrderItem
+    fields = ['order', 'product', 'quantity', 'price']
+    list_display_links = ['product']
+
+
 class SellOrderAdminForm(forms.ModelForm):
 
     class Meta:
@@ -45,9 +51,9 @@ class SellOrderAdminForm(forms.ModelForm):
 class SellOrderAdmin(admin.ModelAdmin):
     form = SellOrderAdminForm
     list_display = ['slug', 'details', 'created_at', 'updated_at']
-    fields = ['seller', 'status', 'tracking',
-              'details', 'slug', 'created_at', 'updated_at']
+    fields = ['seller', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
+    inlines = [InlineOrderItem, ]
 
 
 admin.site.register(SellOrder, SellOrderAdmin)
