@@ -8,7 +8,6 @@ from django.contrib.auth import models as auth_models
 from django.db import models as models
 from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
-from payments.models import Payment
 from sales.models import SellOrder
 from inventory.models import Item
 from purchase.models import PurchaseOrder
@@ -31,12 +30,11 @@ class Cost(SlugModel):
 
     # Fields
     slug = extension_fields.AutoSlugField(
-        populate_from=['type', 'payment'], blank=True)
+        populate_from=['type'], blank=True)
     details = models.CharField(max_length=100, blank=True)
 
     # Relationship Fields
     type = models.ForeignKey(CostType, related_name='+')
-    payment = models.ForeignKey(Payment, related_name='+', blank=True)
 
     class Meta:
         abstract = True
@@ -45,7 +43,7 @@ class Cost(SlugModel):
         return __package__
 
     def save(self, *args, **kwargs):
-        name = '{0} {1}'.format(self.type, self.payment)
+        name = '{0}'.format(self.type)
         self.slug = slugify(name)
         models.Model.save(self, *args, **kwargs)
 

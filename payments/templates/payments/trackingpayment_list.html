@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'payments_payment_list' %}">Payment Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'payments_trackingpayment_list' %}">TrackingPayment Listing</a></p>
 <table class="table">
 <tr>
 <td>ID</td><td>Link</td>
@@ -22,5 +22,5 @@
     <td>{{ object.amount }}</td>
 </tr>
 {% endfor %}
-</table><a class="btn btn-primary" href="{% url 'payments_payment_create' %}">Create new Payment</a>
+</table><a class="btn btn-primary" href="{% url 'payments_trackingpayment_create' %}">Create new TrackingPayment</a>
 {% endblock %}

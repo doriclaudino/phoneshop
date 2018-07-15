@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django import forms
 from .models import CostType, PurchaseCost, ItemCost, SellCost, TrackingCost
+from payments.models import SellCostPayment
 
 
 class CostTypeAdminForm(forms.ModelForm):
@@ -60,11 +61,16 @@ class SellCostAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
+class costPayment(admin.TabularInline):
+    model = SellCostPayment
+
+
 class SellCostAdmin(admin.ModelAdmin):
     form = SellCostAdminForm
-    fields = ['ref', 'type', 'payment', 'details']
+    fields = ['ref', 'type', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
+    inlines = [costPayment, ]
 
 
 admin.site.register(SellCost, SellCostAdmin)
@@ -79,7 +85,7 @@ class TrackingCostAdminForm(forms.ModelForm):
 
 class TrackingCostAdmin(admin.ModelAdmin):
     form = TrackingCostAdminForm
-    fields = ['ref', 'type', 'payment', 'details']
+    fields = ['ref', 'type', 'details']
     list_display = ['slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 

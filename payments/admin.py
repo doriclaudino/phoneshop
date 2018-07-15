@@ -1,22 +1,23 @@
 from django.contrib import admin
 from django import forms
-from .models import PaymentType, PaymentStatus, Payment, OrderPayments
+from .models import PaymentMethod, PaymentStatus, SalePayment, PurchasePayment, TrackingPayment
+from .models import PurchaseCostPayment,  SellCostPayment,  ItemCostPayment, TrackingCostPayment
 
 
-class PaymentTypeAdminForm(forms.ModelForm):
+class PaymentMethodAdminForm(forms.ModelForm):
 
     class Meta:
-        model = PaymentType
+        model = PaymentMethod
         fields = '__all__'
 
 
-class PaymentTypeAdmin(admin.ModelAdmin):
-    form = PaymentTypeAdminForm
+class PaymentMethodAdmin(admin.ModelAdmin):
+    form = PaymentMethodAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
+    readonly_fields = ['name', 'slug', 'created_at', 'updated_at']
 
 
-admin.site.register(PaymentType, PaymentTypeAdmin)
+admin.site.register(PaymentMethod, PaymentMethodAdmin)
 
 
 class PaymentStatusAdminForm(forms.ModelForm):
@@ -29,43 +30,61 @@ class PaymentStatusAdminForm(forms.ModelForm):
 class PaymentStatusAdmin(admin.ModelAdmin):
     form = PaymentStatusAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
+    readonly_fields = ['name', 'slug', 'created_at', 'updated_at']
 
 
 admin.site.register(PaymentStatus, PaymentStatusAdmin)
 
 
-class PaymentAdminForm(forms.ModelForm):
+class SalePaymentAdminForm(forms.ModelForm):
 
     class Meta:
-        model = Payment
+        model = SalePayment
         fields = '__all__'
 
 
-class PaymentAdmin(admin.ModelAdmin):
-    form = PaymentAdminForm
-    fields = ['type', 'status', 'amount', 'date',
-              'slug', 'created_at', 'updated_at', ]
-    list_display = ['slug', 'type', 'status',
-                    'amount', 'date', 'created_at', 'updated_at']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
+class SalePaymentAdmin(admin.ModelAdmin):
+    form = SalePaymentAdminForm
+    list_display = ['slug', 'created_at', 'updated_at', 'date', 'amount']
+    readonly_fields = ['slug', 'created_at', 'updated_at', 'date', 'amount']
 
 
-admin.site.register(Payment, PaymentAdmin)
+admin.site.register(SalePayment, SalePaymentAdmin)
 
 
-class OrderPaymentsAdminForm(forms.ModelForm):
+class PurchasePaymentAdminForm(forms.ModelForm):
 
     class Meta:
-        model = OrderPayments
+        model = PurchasePayment
         fields = '__all__'
 
 
-class OrderPaymentsAdmin(admin.ModelAdmin):
-    form = OrderPaymentsAdminForm
-    list_display = ['order', 'payment',
-                    'slug', 'created_at', 'updated_at']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
+class PurchasePaymentAdmin(admin.ModelAdmin):
+    form = PurchasePaymentAdminForm
+    list_display = ['slug', 'created_at', 'updated_at', 'date', 'amount']
+    readonly_fields = ['slug', 'created_at', 'updated_at', 'date', 'amount']
 
 
-admin.site.register(OrderPayments, OrderPaymentsAdmin)
+admin.site.register(PurchasePayment, PurchasePaymentAdmin)
+
+
+class TrackingPaymentAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = TrackingPayment
+        fields = '__all__'
+
+
+class TrackingPaymentAdmin(admin.ModelAdmin):
+    form = TrackingPaymentAdminForm
+    list_display = ['slug', 'created_at', 'updated_at', 'date', 'amount']
+    readonly_fields = ['slug', 'created_at', 'updated_at', 'date', 'amount']
+
+
+admin.site.register(TrackingPayment, TrackingPaymentAdmin)
+
+
+admin.site.register(PurchaseCostPayment)
+admin.site.register(SellCostPayment)
+admin.site.register(ItemCostPayment)
+admin.site.register(TrackingCostPayment)
