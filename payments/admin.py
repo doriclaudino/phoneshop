@@ -14,7 +14,7 @@ class PaymentMethodAdminForm(forms.ModelForm):
 class PaymentMethodAdmin(admin.ModelAdmin):
     form = PaymentMethodAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
-    readonly_fields = ['name', 'slug', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
 admin.site.register(PaymentMethod, PaymentMethodAdmin)
@@ -30,7 +30,7 @@ class PaymentStatusAdminForm(forms.ModelForm):
 class PaymentStatusAdmin(admin.ModelAdmin):
     form = PaymentStatusAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
-    readonly_fields = ['name', 'slug', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
 admin.site.register(PaymentStatus, PaymentStatusAdmin)

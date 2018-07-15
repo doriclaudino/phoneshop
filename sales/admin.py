@@ -62,7 +62,8 @@ class SellOrderAdminForm(forms.ModelForm):
 
 class SellOrderAdmin(admin.ModelAdmin):
     form = SellOrderAdminForm
-    list_display = ['slug', 'details', 'created_at', 'updated_at']
+    list_display = ['slug', 'seller', 'status', 'tracking',
+                    'created_at', 'updated_at']
     fields = ['seller', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
     inlines = [InlineOrderItem, InlineOrderPayment, InlineOrderItemCost]
