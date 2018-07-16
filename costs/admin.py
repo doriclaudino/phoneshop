@@ -6,7 +6,8 @@ from payments.models import SellCostPayment, PurchaseCostPayment, ItemCostPaymen
 
 class CostAdmin(admin.ModelAdmin):
     fields = ['ref', 'type', 'amount', 'details']
-    list_display = ['slug', 'created_at', 'updated_at']
+    list_display = ['slug', 'ref', 'type',
+                    'amount', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 

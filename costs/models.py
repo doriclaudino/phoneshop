@@ -37,17 +37,13 @@ class Cost(SlugModel):
 
     # Relationship Fields
     type = models.ForeignKey(CostType, related_name='+')
+    ref = models.ForeignKey(PurchaseOrder, related_name='+')
 
     class Meta:
         abstract = True
 
     def get_package_name(self):
         return __package__
-
-    def save(self, *args, **kwargs):
-        name = '{0}'.format(self.type)
-        self.slug = slugify(name)
-        models.Model.save(self, *args, **kwargs)
 
 
 class PurchaseCost(Cost):

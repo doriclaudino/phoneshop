@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class SlugModel(models.Model):
     # Fields
-    slug = AutoSlugField(populate_from='created_at', blank=True)
+    slug = AutoSlugField(populate_from='created_at', blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     objects = models.Manager()
