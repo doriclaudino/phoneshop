@@ -21,7 +21,7 @@ admin.site.register(Model, ModelAdmin)
 
 class ProductAdmin(admin.ModelAdmin):
     fields = ['brand', 'name', 'slug', 'created_at', 'updated_at']
-    list_display = ['brand', 'name', 'slug', 'created_at', 'updated_at']
+    list_display = ['name', 'brand', 'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
 
