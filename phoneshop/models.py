@@ -60,7 +60,7 @@ class SlugName(SlugModel):
 class SlugOrderItem(SlugModel):
 
     # Fields
-    slug = AutoSlugField(populate_from=['order', 'product'], blank=True)
+    slug = AutoSlugField(populate_from=['product'], blank=True)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(
         max_digits=10, decimal_places=2, default=100.00)
@@ -79,6 +79,6 @@ class SlugOrderItem(SlugModel):
         unique_together = ('product', 'order')
 
     def save(self, *args, **kwargs):
-        name = '{0} {1}'.format(self.order, self.product)
+        name = '{0}'.format(self.product)
         self.slug = slugify(name)
         models.Model.save(self, *args, **kwargs)
