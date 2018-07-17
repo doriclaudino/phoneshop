@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'payments.apps.PaymentsConfig',
     'costs.apps.CostsConfig',
+    'accounts.apps.AccountsConfig',
 
 
 
@@ -162,3 +163,6 @@ LOCALE_PATHS = (
 # auth
 LOGOUT_REDIRECT_URL = '/home'
 LOGIN_REDIRECT_URL = '/home'
+
+
+AUTH_USER_MODEL = 'accounts.User'
