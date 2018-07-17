@@ -14,7 +14,6 @@ class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    lookup_field = 'slug'
 
 
 class BrandCreateView(CreateView):

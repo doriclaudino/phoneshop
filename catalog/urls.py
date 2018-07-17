@@ -8,7 +8,7 @@ urlpatterns = (
     # urls for Brand
     url(r'^catalog/brand/$', views.BrandListView.as_view(),
         name='catalog_brand_list'),
-    url(r'^catalog/brand/(?P<slug>\S+)/$',
+    url(r'^catalog/brand/(?P<pk>\S+)/$',
         views.BrandDetailView.as_view(), name='catalog_brand_detail'),
 
 )
