@@ -29,6 +29,11 @@ urlpatterns = i18n_patterns(
     url(r'^payments/', include('payments.urls')),
     url(r'^costs/', include('costs.urls')),
 
+
+
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^api-auth/', include('rest_framework.urls')),
+
 )
 
 handler404 = 'home.views.home'
