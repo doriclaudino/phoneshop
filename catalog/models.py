@@ -19,7 +19,6 @@ class Brand(SlugName):
 
     def get_package_name(self):
         return __package__
-# Represent the models of products
 
 
 class Model(SlugName):
