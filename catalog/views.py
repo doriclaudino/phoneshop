@@ -1,19 +1,24 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
 from .models import Brand, Model, Product, ProductModel
 from .forms import BrandForm, ModelForm, ProductForm, ProductModelForm
+from rest_framework import mixins, generics, permissions
+from catalog.serializers import BrandSerializer
 
 
-class BrandListView(ListView):
-    model = Brand
+class BrandListView(generics.ListCreateAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+
+
+class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    lookup_field = 'slug'
 
 
 class BrandCreateView(CreateView):
     model = Brand
     form_class = BrandForm
-
-
-class BrandDetailView(DetailView):
-    model = Brand
 
 
 class BrandUpdateView(UpdateView):
