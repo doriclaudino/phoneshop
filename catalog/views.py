@@ -3,11 +3,19 @@ from .models import Brand, Model, Product, ProductModel
 from .forms import BrandForm, ModelForm, ProductForm, ProductModelForm
 from rest_framework import mixins, generics, permissions
 from catalog.serializers import BrandSerializer
+from rest_framework import viewsets
+
+
+class BrandViewSet(viewsets.ModelViewSet):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class BrandListView(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
 
 class BrandDetailView(generics.RetrieveUpdateDestroyAPIView):
