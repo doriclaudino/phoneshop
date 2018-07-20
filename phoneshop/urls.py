@@ -17,8 +17,16 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf.urls.i18n import i18n_patterns
 from django.views.defaults import page_not_found
+from rest_framework.routers import DefaultRouter
+from catalog.views import BrandViewSet
+
+
+router = DefaultRouter()
+router.register(r'brand', BrandViewSet)
+
 
 urlpatterns = i18n_patterns(
+    url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^logistic/', include('logistic.urls')),
     url(r'^catalog/', include('catalog.urls')),
@@ -28,6 +36,11 @@ urlpatterns = i18n_patterns(
     url(r'^home/', include('home.urls')),
     url(r'^payments/', include('payments.urls')),
     url(r'^costs/', include('costs.urls')),
+
+
+
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
+    url(r'^api-auth/', include('rest_framework.urls')),
 
 )
 

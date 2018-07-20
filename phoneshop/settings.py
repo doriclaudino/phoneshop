@@ -41,7 +41,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'crispy_forms',
-    'rest_framework',
+
 
     'logistic.apps.LogisticConfig',
     'catalog.apps.CatalogConfig',
@@ -50,8 +50,29 @@ INSTALLED_APPS = [
     'inventory.apps.InventoryConfig',
     'home.apps.HomeConfig',
     'payments.apps.PaymentsConfig',
-    'costs.apps.CostsConfig'
+    'costs.apps.CostsConfig',
+    'accounts.apps.AccountsConfig',
+
+
+
+    'rest_framework',
+    'oauth2_provider',
 ]
+
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope'}
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -141,3 +162,6 @@ LOCALE_PATHS = (
 # auth
 LOGOUT_REDIRECT_URL = '/home'
 LOGIN_REDIRECT_URL = '/home'
+
+
+AUTH_USER_MODEL = 'accounts.User'

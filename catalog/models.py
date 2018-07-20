@@ -20,6 +20,9 @@ class Brand(SlugName):
     def get_package_name(self):
         return __package__
 
+    def get_absolute_url(self):
+        return reverse(self.get_base_url() + '_detail', args=(self.pk,))
+
 
 class Model(SlugName):
 
