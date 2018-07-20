@@ -11,16 +11,6 @@ from django.utils.translation import gettext_lazy as _
 from phoneshop.models import SlugModel, SlugName
 
 
-class Location(SlugName):
-
-    class Meta:
-        verbose_name_plural = _('Locations')
-        verbose_name = _('Location')
-
-    def get_package_name(self):
-        return __package__
-
-
 class Carrier(SlugName):
 
     # Fields

@@ -1,17 +1,9 @@
 from django.contrib import admin
 from django import forms
-from .models import Location, Carrier, TrackingStatus, Tracking
+from .models import Carrier, TrackingStatus, Tracking
 from django.contrib.contenttypes.admin import GenericTabularInline
 from costs.models import Cost
 from django.contrib.contenttypes.admin import GenericTabularInline
-
-
-class LocationAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug', 'created_at', 'updated_at']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
-
-
-admin.site.register(Location, LocationAdmin)
 
 
 class CarrierAdmin(admin.ModelAdmin):

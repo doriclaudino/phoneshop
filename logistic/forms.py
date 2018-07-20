@@ -1,11 +1,5 @@
 from django import forms
-from .models import Location, Carrier, TrackingStatus, Tracking
-
-
-class LocationForm(forms.ModelForm):
-    class Meta:
-        model = Location
-        fields = ['name']
+from .models import Carrier, TrackingStatus, Tracking
 
 
 class CarrierForm(forms.ModelForm):
@@ -24,5 +18,3 @@ class TrackingForm(forms.ModelForm):
     class Meta:
         model = Tracking
         fields = ['carrier', 'number', 'description', 'status', 'previous']
-
-

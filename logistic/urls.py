@@ -4,18 +4,6 @@ from . import views
 
 
 urlpatterns = (
-    # urls for Location
-    url(r'^location/$', views.LocationListView.as_view(),
-        name='logistic_location_list'),
-    url(r'^location/create/$', views.LocationCreateView.as_view(),
-        name='logistic_location_create'),
-    url(r'^location/detail/(?P<slug>\S+)/$',
-        views.LocationDetailView.as_view(), name='logistic_location_detail'),
-    url(r'^location/update/(?P<slug>\S+)/$',
-        views.LocationUpdateView.as_view(), name='logistic_location_update'),
-)
-
-urlpatterns += (
     # urls for Carrier
     url(r'^carrier/$', views.CarrierListView.as_view(),
         name='logistic_carrier_list'),

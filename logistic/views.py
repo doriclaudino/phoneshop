@@ -1,24 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import Location, Carrier, TrackingStatus, Tracking
-from .forms import LocationForm, CarrierForm, TrackingStatusForm, TrackingForm
-
-
-class LocationListView(ListView):
-    model = Location
-
-
-class LocationCreateView(CreateView):
-    model = Location
-    form_class = LocationForm
-
-
-class LocationDetailView(DetailView):
-    model = Location
-
-
-class LocationUpdateView(UpdateView):
-    model = Location
-    form_class = LocationForm
+from .models import Carrier, TrackingStatus, Tracking
+from .forms import CarrierForm, TrackingStatusForm, TrackingForm
 
 
 class CarrierListView(ListView):
