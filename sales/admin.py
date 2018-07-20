@@ -1,17 +1,11 @@
 from django.contrib import admin
 from django import forms
 from .models import Seller, SellOrderStatus, SellOrder, SellOrderItem
-from costs.models import SellCost
-
-class SellerAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = Seller
-        fields = '__all__'
+from costs.models import Cost
+from django.contrib.contenttypes.admin import GenericTabularInline
 
 
 class SellerAdmin(admin.ModelAdmin):
-    form = SellerAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at', 'website']
     readonly_fields = ['slug', 'created_at', 'updated_at', 'website']
 
@@ -19,15 +13,7 @@ class SellerAdmin(admin.ModelAdmin):
 admin.site.register(Seller, SellerAdmin)
 
 
-class SellOrderStatusAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = SellOrderStatus
-        fields = '__all__'
-
-
 class SellOrderStatusAdmin(admin.ModelAdmin):
-    form = SellOrderStatusAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
@@ -41,20 +27,12 @@ class InlineOrderItem(admin.TabularInline):
     list_display_links = ['product']
 
 
-class InlineOrderItemCost(admin.TabularInline):
-    model = SellCost
+class InlineOrderItemCost(GenericTabularInline):
+    model = Cost
     fields = ['type', 'details', 'payment']
 
 
-class SellOrderAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = SellOrder
-        fields = '__all__'
-
-
 class SellOrderAdmin(admin.ModelAdmin):
-    form = SellOrderAdminForm
     list_display = ['slug', 'details', 'created_at', 'updated_at']
     fields = ['seller', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
@@ -64,15 +42,7 @@ class SellOrderAdmin(admin.ModelAdmin):
 admin.site.register(SellOrder, SellOrderAdmin)
 
 
-class SellOrderItemAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = SellOrderItem
-        fields = '__all__'
-
-
 class SellOrderItemAdmin(admin.ModelAdmin):
-    form = SellOrderItemAdminForm
     fields = ['order', 'product', 'quantity',
               'price', 'slug', 'created_at', 'updated_at']
     list_display = ['slug', 'order', 'product',

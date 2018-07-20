@@ -36,47 +36,19 @@ class Cost(SlugModel):
 
     # Relationship Fields
     type = models.ForeignKey(CostType, related_name='+')
-    payment = models.ForeignKey(Payment, related_name='+', blank=True)
-
-    class Meta:
-        abstract = True
+    payment = models.ForeignKey(
+        Payment, related_name='+', null=True, blank=True)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     def get_package_name(self):
         return __package__
+
+    def cost_of(self):
+        return '{0} - {1}'.format(self.content_type.model, self.content_object)
 
     def save(self, *args, **kwargs):
         name = '{0} {1}'.format(self.type, self.payment)
         self.slug = slugify(name)
         models.Model.save(self, *args, **kwargs)
-
-
-class PurchaseCost(Cost):
-    ref = models.ForeignKey(PurchaseOrder, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Purchase Costs')
-        verbose_name = _('Purchase Cost')
-
-
-class SellCost(Cost):
-    ref = models.ForeignKey(SellOrder, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Sell Costs')
-        verbose_name = _('Sell Cost')
-
-
-class ItemCost(Cost):
-    ref = models.ForeignKey(Item, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Item Costs')
-        verbose_name = _('Item Cost')
-
-
-class TrackingCost(Cost):
-    ref = models.ForeignKey(Tracking, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Tracking Costs')
-        verbose_name = _('Tracking Cost')
