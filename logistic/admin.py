@@ -32,7 +32,7 @@ admin.site.register(TrackingStatus, TrackingStatusAdmin)
 
 class InlineTrackingCost(GenericTabularInline):
     model = Cost
-    fields = ['type',  'details', 'payment']
+    fields = ['type',  'details']
     extra = 1
 
 

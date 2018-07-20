@@ -11,4 +11,4 @@ class CostTypeForm(forms.ModelForm):
 class CostForm(forms.ModelForm):
     class Meta:
         model = Cost
-        fields = ['payment',  'type']
+        fields = ['type', 'amount', 'details']

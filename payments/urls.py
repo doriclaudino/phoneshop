@@ -30,37 +30,13 @@ urlpatterns += (
 
 
 urlpatterns += (
-    # urls for SalePayment
-    url(r'^payments/salepayment/$', views.SalePaymentListView.as_view(),
+    # urls for Payment
+    url(r'^payments/salepayment/$', views.PaymentListView.as_view(),
         name='payments_salepayment_list'),
     url(r'^payments/salepayment/create/$',
-        views.SalePaymentCreateView.as_view(), name='payments_salepayment_create'),
+        views.PaymentCreateView.as_view(), name='payments_salepayment_create'),
     url(r'^payments/salepayment/detail/(?P<slug>\S+)/$',
-        views.SalePaymentDetailView.as_view(), name='payments_salepayment_detail'),
+        views.PaymentDetailView.as_view(), name='payments_salepayment_detail'),
     url(r'^payments/salepayment/update/(?P<slug>\S+)/$',
-        views.SalePaymentUpdateView.as_view(), name='payments_salepayment_update'),
-)
-
-urlpatterns += (
-    # urls for PurchasePayment
-    url(r'^payments/purchasepayment/$', views.PurchasePaymentListView.as_view(),
-        name='payments_purchasepayment_list'),
-    url(r'^payments/purchasepayment/create/$',
-        views.PurchasePaymentCreateView.as_view(), name='payments_purchasepayment_create'),
-    url(r'^payments/purchasepayment/detail/(?P<slug>\S+)/$',
-        views.PurchasePaymentDetailView.as_view(), name='payments_purchasepayment_detail'),
-    url(r'^payments/purchasepayment/update/(?P<slug>\S+)/$',
-        views.PurchasePaymentUpdateView.as_view(), name='payments_purchasepayment_update'),
-)
-
-urlpatterns += (
-    # urls for TrackingPayment
-    url(r'^payments/trackingpayment/$', views.TrackingPaymentListView.as_view(),
-        name='payments_trackingpayment_list'),
-    url(r'^payments/trackingpayment/create/$',
-        views.TrackingPaymentCreateView.as_view(), name='payments_trackingpayment_create'),
-    url(r'^payments/trackingpayment/detail/(?P<slug>\S+)/$',
-        views.TrackingPaymentDetailView.as_view(), name='payments_trackingpayment_detail'),
-    url(r'^payments/trackingpayment/update/(?P<slug>\S+)/$',
-        views.TrackingPaymentUpdateView.as_view(), name='payments_trackingpayment_update'),
+        views.PaymentUpdateView.as_view(), name='payments_salepayment_update'),
 )

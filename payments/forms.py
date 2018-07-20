@@ -1,5 +1,5 @@
 from django import forms
-from .models import PaymentMethod, PaymentStatus, SalePayment, PurchasePayment, TrackingPayment
+from .models import PaymentMethod, PaymentStatus, Payment
 
 
 class PaymentMethodForm(forms.ModelForm):
@@ -14,19 +14,7 @@ class PaymentStatusForm(forms.ModelForm):
         fields = ['name']
 
 
-class SalePaymentForm(forms.ModelForm):
+class PaymentForm(forms.ModelForm):
     class Meta:
-        model = SalePayment
-        fields = ['date', 'amount', 'status', 'method', 'ref']
-
-
-class PurchasePaymentForm(forms.ModelForm):
-    class Meta:
-        model = PurchasePayment
-        fields = ['date', 'amount', 'status', 'method', 'ref']
-
-
-class TrackingPaymentForm(forms.ModelForm):
-    class Meta:
-        model = TrackingPayment
-        fields = ['date', 'amount', 'status', 'method', 'ref']
+        model = Payment
+        fields = ['date', 'amount', 'status', 'method']

@@ -1,6 +1,6 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import PaymentMethod, PaymentStatus, SalePayment, PurchasePayment, TrackingPayment
-from .forms import PaymentMethodForm, PaymentStatusForm,  SalePaymentForm, PurchasePaymentForm, TrackingPaymentForm
+from .models import PaymentMethod, PaymentStatus, Payment
+from .forms import PaymentMethodForm, PaymentStatusForm, PaymentForm
 
 
 class PaymentMethodListView(ListView):
@@ -39,55 +39,19 @@ class PaymentStatusUpdateView(UpdateView):
     form_class = PaymentStatusForm
 
 
-class SalePaymentListView(ListView):
-    model = SalePayment
+class PaymentListView(ListView):
+    model = Payment
 
 
-class SalePaymentCreateView(CreateView):
-    model = SalePayment
-    form_class = SalePaymentForm
+class PaymentCreateView(CreateView):
+    model = Payment
+    form_class = PaymentForm
 
 
-class SalePaymentDetailView(DetailView):
-    model = SalePayment
+class PaymentDetailView(DetailView):
+    model = Payment
 
 
-class SalePaymentUpdateView(UpdateView):
-    model = SalePayment
-    form_class = SalePaymentForm
-
-
-class PurchasePaymentListView(ListView):
-    model = PurchasePayment
-
-
-class PurchasePaymentCreateView(CreateView):
-    model = PurchasePayment
-    form_class = PurchasePaymentForm
-
-
-class PurchasePaymentDetailView(DetailView):
-    model = PurchasePayment
-
-
-class PurchasePaymentUpdateView(UpdateView):
-    model = PurchasePayment
-    form_class = PurchasePaymentForm
-
-
-class TrackingPaymentListView(ListView):
-    model = TrackingPayment
-
-
-class TrackingPaymentCreateView(CreateView):
-    model = TrackingPayment
-    form_class = TrackingPaymentForm
-
-
-class TrackingPaymentDetailView(DetailView):
-    model = TrackingPayment
-
-
-class TrackingPaymentUpdateView(UpdateView):
-    model = TrackingPayment
-    form_class = TrackingPaymentForm
+class PaymentUpdateView(UpdateView):
+    model = Payment
+    form_class = PaymentForm

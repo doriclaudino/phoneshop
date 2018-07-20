@@ -14,7 +14,7 @@ from purchase.models import PurchaseOrder
 from logistic.models import Tracking
 from costs.models import Cost
 from django.utils import timezone
-from costs.models import TrackingCost, ItemCost, SellCost, PurchaseCost
+from costs.models import Cost
 
 
 class PaymentMethod(SlugName):
@@ -40,7 +40,7 @@ class PaymentStatus(SlugName):
 class Payment(SlugModel):
 
     # Fields
-    slug = AutoSlugField(populate_from=['ref', 'method', 'status'], blank=True)
+    slug = AutoSlugField(populate_from=['method', 'status'], blank=True)
     date = models.DateTimeField(default=timezone.now)
     amount = models.DecimalField(
         max_digits=10, decimal_places=2, default=100.00)
@@ -48,75 +48,16 @@ class Payment(SlugModel):
     # Relationship Fields
     status = models.ForeignKey(PaymentStatus, related_name='+')
     method = models.ForeignKey(PaymentMethod, related_name='+')
-    ref = ''
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
 
     class Meta:
         verbose_name_plural = _('Payments')
         verbose_name = _('Payment')
-        abstract = True
 
     def get_package_name(self):
         return __package__
 
-    def save(self, *args, **kwargs):
-        name = '{0} {1} {2}'.format(self.ref, self.method, self.status)
-        self.slug = slugify(name)
-        models.Model.save(self, *args, **kwargs)
-
-
-class SalePayment(Payment):
-    ref = models.ForeignKey(SellOrder, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Sale Payments')
-        verbose_name = _('Sale Payment')
-
-
-class PurchasePayment(Payment):
-    ref = models.ForeignKey(PurchaseOrder, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Purchase Payments')
-        verbose_name = _('Purchase Payment')
-
-
-class TrackingPayment(Payment):
-    ref = models.ForeignKey(Tracking, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Tracking Payments')
-        verbose_name = _('Tracking Payment')
-
-
-# relative costs payments
-class PurchaseCostPayment(Payment):
-    ref = models.ForeignKey(PurchaseCost, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Purchase Cost Payments')
-        verbose_name = _('Purchase Cost Payment')
-
-
-class SellCostPayment(Payment):
-    ref = models.ForeignKey(SellCost, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Sell Cost Payments')
-        verbose_name = _('Sell Cost Payment')
-        #unique_together = ['','']
-
-
-class ItemCostPayment(Payment):
-    ref = models.ForeignKey(ItemCost, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Item Cost Payments')
-        verbose_name = _('Item Cost Payment')
-
-
-class TrackingCostPayment(Payment):
-    ref = models.ForeignKey(TrackingCost, related_name='+')
-
-    class Meta:
-        verbose_name_plural = _('Tracking Cost Payments')
-        verbose_name = _('Tracking Cost Payment')
+    def payment_of(self):
+        return '{0} - {1}'.format(self.content_type.model, self.content_object)
