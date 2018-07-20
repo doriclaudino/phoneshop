@@ -1,17 +1,11 @@
 from django.contrib import admin
 from django import forms
 from .models import Location, Carrier, TrackingStatus, Tracking
-
-
-class LocationAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = Location
-        fields = '__all__'
+from django.contrib.contenttypes.admin import GenericTabularInline
+from costs.models import Cost
 
 
 class LocationAdmin(admin.ModelAdmin):
-    form = LocationAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
@@ -19,15 +13,7 @@ class LocationAdmin(admin.ModelAdmin):
 admin.site.register(Location, LocationAdmin)
 
 
-class CarrierAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = Carrier
-        fields = '__all__'
-
-
 class CarrierAdmin(admin.ModelAdmin):
-    form = CarrierAdminForm
     list_display = ['name', 'website', 'tracking_url',
                     'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at']
@@ -36,15 +22,7 @@ class CarrierAdmin(admin.ModelAdmin):
 admin.site.register(Carrier, CarrierAdmin)
 
 
-class TrackingStatusAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = TrackingStatus
-        fields = '__all__'
-
-
 class TrackingStatusAdmin(admin.ModelAdmin):
-    form = TrackingStatusAdminForm
     list_display = ['name', 'slug', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
 
@@ -52,20 +30,19 @@ class TrackingStatusAdmin(admin.ModelAdmin):
 admin.site.register(TrackingStatus, TrackingStatusAdmin)
 
 
-class TrackingAdminForm(forms.ModelForm):
-
-    class Meta:
-        model = Tracking
-        fields = '__all__'
+class InlineTrackingCost(GenericTabularInline):
+    model = Cost
+    fields = ['type',  'details', 'payment']
+    extra = 1
 
 
 class TrackingAdmin(admin.ModelAdmin):
-    form = TrackingAdminForm
     fields = ['carrier', 'number', 'status',
               'description', 'slug', 'created_at', 'updated_at']
     list_display = ['slug', 'carrier', 'number', 'status',
                     'description', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
+    inlines = [InlineTrackingCost, ]
 
 
 admin.site.register(Tracking, TrackingAdmin)
