@@ -20,9 +20,10 @@ admin.site.register(PaymentStatus, PaymentStatusAdmin)
 
 
 class PaymentAdmin(admin.ModelAdmin):
-    list_display = ['slug', 'payment_of', 'date',
+    fields = ['date', 'amount', 'content_type', ]
+    list_display = ['slug', 'content_type', 'date',
                     'amount', 'created_at', 'updated_at', ]
-    readonly_fields = ['slug',  'date', 'amount', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'content_type', 'created_at', 'updated_at']
 
 
 admin.site.register(Payment, PaymentAdmin)

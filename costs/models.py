@@ -30,7 +30,7 @@ class Cost(SlugModel):
 
     # Fields
     slug = extension_fields.AutoSlugField(
-        populate_from=['cost_of'], blank=True)
+        populate_from=['content_type'], blank=True)
     details = models.CharField(max_length=100, blank=True)
     amount = models.DecimalField(
         max_digits=10, decimal_places=2, default=100.00)
@@ -43,6 +43,3 @@ class Cost(SlugModel):
 
     def get_package_name(self):
         return __package__
-
-    def cost_of(self):
-        return '{0} - {1}'.format(self.content_type.model, self.content_object)

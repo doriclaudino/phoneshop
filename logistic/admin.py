@@ -3,6 +3,7 @@ from django import forms
 from .models import Location, Carrier, TrackingStatus, Tracking
 from django.contrib.contenttypes.admin import GenericTabularInline
 from costs.models import Cost
+from django.contrib.contenttypes.admin import GenericTabularInline
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -30,9 +31,9 @@ class TrackingStatusAdmin(admin.ModelAdmin):
 admin.site.register(TrackingStatus, TrackingStatusAdmin)
 
 
-class InlineTrackingCost(GenericTabularInline):
+class InlineCost(GenericTabularInline):
     model = Cost
-    fields = ['type',  'details']
+    fields = ['type', 'amount', 'details']
     extra = 1
 
 
@@ -42,7 +43,7 @@ class TrackingAdmin(admin.ModelAdmin):
     list_display = ['slug', 'carrier', 'number', 'status',
                     'description', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at']
-    inlines = [InlineTrackingCost, ]
+    inlines = [InlineCost, ]
 
 
 admin.site.register(Tracking, TrackingAdmin)

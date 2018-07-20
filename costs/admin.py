@@ -13,16 +13,17 @@ class CostTypeAdmin(admin.ModelAdmin):
 admin.site.register(CostType, CostTypeAdmin)
 
 
-class InlineCostPayment(GenericTabularInline):
+class InlinePayment(GenericTabularInline):
     model = Payment
     extra = 1
 
 
 class CostAdmin(admin.ModelAdmin):
-    fields = ['type', 'details']
-    list_display = ['slug', 'cost_of', 'created_at', 'updated_at']
-    readonly_fields = ['slug', 'created_at', 'updated_at']
-    inlines = [InlineCostPayment, ]
+    fields = ['type', 'amount', 'details', 'content_type']
+    list_display = ['slug', 'amount',
+                    'content_type', 'created_at', 'updated_at']
+    readonly_fields = ['slug', 'created_at', 'updated_at', 'content_type']
+    inlines = [InlinePayment, ]
 
 
 admin.site.register(Cost, CostAdmin)
