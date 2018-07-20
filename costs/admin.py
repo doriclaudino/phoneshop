@@ -21,7 +21,7 @@ class InlinePayment(GenericTabularInline):
 class CostAdmin(admin.ModelAdmin):
     fields = ['type', 'amount', 'details', 'content_type']
     list_display = ['slug', 'amount',
-                    'content_type', 'created_at', 'updated_at']
+                    'content_type', 'type', 'created_at', 'updated_at']
     readonly_fields = ['slug', 'created_at', 'updated_at', 'content_type']
     inlines = [InlinePayment, ]
 
