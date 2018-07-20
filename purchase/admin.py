@@ -47,16 +47,19 @@ class InlineOrderItem(admin.TabularInline):
     model = PurchaseOrderItem
     fields = ['order', 'product', 'quantity', 'price']
     list_display_links = ['product']
+    extra = 1
 
 
 class InlineOrderItemCost(admin.TabularInline):
     model = PurchaseCost
-    fields = ['type', 'details', 'payment']
+    fields = ['type', 'details']
+    extra = 1
 
 
 class PurchaseOrderAdmin(admin.ModelAdmin):
     form = PurchaseOrderAdminForm
-    list_display = ['slug', 'details', 'created_at', 'updated_at']
+    list_display = ['slug', 'supplier', 'status',
+                    'tracking', 'details', 'created_at', 'updated_at']
     fields = ['supplier', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
     inlines = [InlineOrderItem, InlineOrderItemCost]

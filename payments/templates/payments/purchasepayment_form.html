@@ -2,7 +2,7 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'payments_paymenttype_list' %}">PaymentType Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'payments_purchasepayment_list' %}">PurchasePayment Listing</a></p>
 <form method="post">
 {% csrf_token %}
 {{form|crispy}}

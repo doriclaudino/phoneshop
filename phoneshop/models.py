@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class SlugModel(models.Model):
     # Fields
-    slug = AutoSlugField(populate_from='created_at', blank=True)
+    slug = AutoSlugField(populate_from='created_at', blank=True, unique=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
     objects = models.Manager()
@@ -60,7 +60,7 @@ class SlugName(SlugModel):
 class SlugOrderItem(SlugModel):
 
     # Fields
-    slug = AutoSlugField(populate_from=['order', 'product'], blank=True)
+    slug = AutoSlugField(populate_from=['product'], blank=True)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(
         max_digits=10, decimal_places=2, default=100.00)
@@ -79,6 +79,6 @@ class SlugOrderItem(SlugModel):
         unique_together = ('product', 'order')
 
     def save(self, *args, **kwargs):
-        name = '{0} {1}'.format(self.order, self.product)
+        name = '{0}'.format(self.product)
         self.slug = slugify(name)
         models.Model.save(self, *args, **kwargs)

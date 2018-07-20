@@ -2,6 +2,8 @@ from django.contrib import admin
 from django import forms
 from .models import Seller, SellOrderStatus, SellOrder, SellOrderItem
 from costs.models import SellCost
+from payments.models import SalePayment
+
 
 class SellerAdminForm(forms.ModelForm):
 
@@ -43,7 +45,12 @@ class InlineOrderItem(admin.TabularInline):
 
 class InlineOrderItemCost(admin.TabularInline):
     model = SellCost
-    fields = ['type', 'details', 'payment']
+    fields = ['type', 'details']
+
+
+class InlineOrderPayment(admin.TabularInline):
+    model = SalePayment
+    fields = ['method', 'amount', 'status']
 
 
 class SellOrderAdminForm(forms.ModelForm):
@@ -55,10 +62,11 @@ class SellOrderAdminForm(forms.ModelForm):
 
 class SellOrderAdmin(admin.ModelAdmin):
     form = SellOrderAdminForm
-    list_display = ['slug', 'details', 'created_at', 'updated_at']
+    list_display = ['slug', 'seller', 'status', 'tracking',
+                    'created_at', 'updated_at']
     fields = ['seller', 'status', 'tracking', 'details']
     readonly_fields = ['slug', 'created_at', 'updated_at']
-    inlines = [InlineOrderItem, InlineOrderItemCost]
+    inlines = [InlineOrderItem, InlineOrderPayment, InlineOrderItemCost]
 
 
 admin.site.register(SellOrder, SellOrderAdmin)

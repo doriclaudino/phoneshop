@@ -39,7 +39,7 @@ class SellOrder(SlugModel):
     # Fields
     details = models.TextField(max_length=500, blank=True)
     slug = extension_fields.AutoSlugField(
-        populate_from=['seller', 'tracking'], blank=True)
+        populate_from=['seller', 'status', 'tracking'], blank=True)
 
     # Relationship Fields
     seller = models.ForeignKey(Seller, related_name='+')
@@ -52,9 +52,9 @@ class SellOrder(SlugModel):
         unique_together = ('seller', 'tracking')
 
     def save(self, *args, **kwargs):
-        name = '{0} {1}'.format(self.seller, self.tracking)
+        name = '{0} {1} {2}'.format(self.seller, self.status, self.tracking)
         self.slug = slugify(name)
-        super(SellOrder, self).save(*args, **kwargs)
+        models.Model.save(self, *args, **kwargs)
 
     def get_package_name(self):
         return __package__

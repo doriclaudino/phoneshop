@@ -1,24 +1,24 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import PaymentType, PaymentStatus, Payment, OrderPayments
-from .forms import PaymentTypeForm, PaymentStatusForm, PaymentForm, OrderPaymentsForm
+from .models import PaymentMethod, PaymentStatus, SalePayment, PurchasePayment, TrackingPayment
+from .forms import PaymentMethodForm, PaymentStatusForm,  SalePaymentForm, PurchasePaymentForm, TrackingPaymentForm
 
 
-class PaymentTypeListView(ListView):
-    model = PaymentType
+class PaymentMethodListView(ListView):
+    model = PaymentMethod
 
 
-class PaymentTypeCreateView(CreateView):
-    model = PaymentType
-    form_class = PaymentTypeForm
+class PaymentMethodCreateView(CreateView):
+    model = PaymentMethod
+    form_class = PaymentMethodForm
 
 
-class PaymentTypeDetailView(DetailView):
-    model = PaymentType
+class PaymentMethodDetailView(DetailView):
+    model = PaymentMethod
 
 
-class PaymentTypeUpdateView(UpdateView):
-    model = PaymentType
-    form_class = PaymentTypeForm
+class PaymentMethodUpdateView(UpdateView):
+    model = PaymentMethod
+    form_class = PaymentMethodForm
 
 
 class PaymentStatusListView(ListView):
@@ -39,38 +39,55 @@ class PaymentStatusUpdateView(UpdateView):
     form_class = PaymentStatusForm
 
 
-class PaymentListView(ListView):
-    model = Payment
+class SalePaymentListView(ListView):
+    model = SalePayment
 
 
-class PaymentCreateView(CreateView):
-    model = Payment
-    form_class = PaymentForm
+class SalePaymentCreateView(CreateView):
+    model = SalePayment
+    form_class = SalePaymentForm
 
 
-class PaymentDetailView(DetailView):
-    model = Payment
+class SalePaymentDetailView(DetailView):
+    model = SalePayment
 
 
-class PaymentUpdateView(UpdateView):
-    model = Payment
-    form_class = PaymentForm
+class SalePaymentUpdateView(UpdateView):
+    model = SalePayment
+    form_class = SalePaymentForm
 
 
-class OrderPaymentsListView(ListView):
-    model = OrderPayments
+class PurchasePaymentListView(ListView):
+    model = PurchasePayment
 
 
-class OrderPaymentsCreateView(CreateView):
-    model = OrderPayments
-    form_class = OrderPaymentsForm
+class PurchasePaymentCreateView(CreateView):
+    model = PurchasePayment
+    form_class = PurchasePaymentForm
 
 
-class OrderPaymentsDetailView(DetailView):
-    model = OrderPayments
+class PurchasePaymentDetailView(DetailView):
+    model = PurchasePayment
 
 
-class OrderPaymentsUpdateView(UpdateView):
-    model = OrderPayments
-    form_class = OrderPaymentsForm
+class PurchasePaymentUpdateView(UpdateView):
+    model = PurchasePayment
+    form_class = PurchasePaymentForm
 
+
+class TrackingPaymentListView(ListView):
+    model = TrackingPayment
+
+
+class TrackingPaymentCreateView(CreateView):
+    model = TrackingPayment
+    form_class = TrackingPaymentForm
+
+
+class TrackingPaymentDetailView(DetailView):
+    model = TrackingPayment
+
+
+class TrackingPaymentUpdateView(UpdateView):
+    model = TrackingPayment
+    form_class = TrackingPaymentForm

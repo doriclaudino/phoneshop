@@ -2,82 +2,114 @@ import unittest
 import uuid
 from django.core.urlresolvers import reverse
 from django.test import Client
-from .models import PaymentType, PaymentStatus, Payment, OrderPayments
+from .models import PaymentMethod, PaymentStatus, SalePayment, PurchasePayment, TrackingPayment
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from sales.tests import create_sellorder
+from purchase.tests import create_purchaseorder
+from logistic.tests import create_tracking
 from django.utils import timezone
 
 
-def create_paymenttype(**kwargs):
+def create_paymentmethod(**kwargs):
     defaults = {}
     defaults["name"] = uuid.uuid4()
+    defaults["slug"] = "slug"
     defaults.update(**kwargs)
-    return PaymentType.objects.create(**defaults)
+    return PaymentMethod.objects.create(**defaults)
 
 
 def create_paymentstatus(**kwargs):
     defaults = {}
     defaults["name"] = uuid.uuid4()
+    defaults["slug"] = "slug"
     defaults.update(**kwargs)
     return PaymentStatus.objects.create(**defaults)
 
 
-def create_payment(**kwargs):
+def create_salepayment(**kwargs):
     defaults = {}
+    defaults["slug"] = "slug"
+    defaults["date"] = timezone.now()
     defaults["amount"] = 100.00
     defaults.update(**kwargs)
     if "status" not in defaults:
         defaults["status"] = create_paymentstatus()
-    if "type" not in defaults:
-        defaults["type"] = create_paymenttype()
-    return Payment.objects.create(**defaults)
+    if "method" not in defaults:
+        defaults["method"] = create_paymentmethod()
+    if "ref" not in defaults:
+        defaults["ref"] = create_sellorder()
+    return SalePayment.objects.create(**defaults)
 
 
-def create_orderpayments(**kwargs):
+def create_purchasepayment(**kwargs):
     defaults = {}
+    defaults["slug"] = "slug"
+    defaults["date"] = timezone.now()
+    defaults["amount"] = 100.00
     defaults.update(**kwargs)
-    if "order" not in defaults:
-        defaults["order"] = create_sellorder()
-    if "payment" not in defaults:
-        defaults["payment"] = create_payment()
-    return OrderPayments.objects.create(**defaults)
+    if "status" not in defaults:
+        defaults["status"] = create_paymentstatus()
+    if "method" not in defaults:
+        defaults["method"] = create_paymentmethod()
+    if "ref" not in defaults:
+        defaults["ref"] = create_purchaseorder()
+    return PurchasePayment.objects.create(**defaults)
 
 
-class PaymentTypeViewTest(unittest.TestCase):
+def create_trackingpayment(**kwargs):
+    defaults = {}
+    defaults["slug"] = "slug"
+    defaults["date"] = timezone.now()
+    defaults["amount"] = 100.00
+    defaults.update(**kwargs)
+    if "status" not in defaults:
+        defaults["status"] = create_paymentstatus()
+    if "method" not in defaults:
+        defaults["method"] = create_paymentmethod()
+    if "ref" not in defaults:
+        defaults["ref"] = create_tracking()
+    return TrackingPayment.objects.create(**defaults)
+
+
+class PaymentMethodViewTest(unittest.TestCase):
     '''
-    Tests for PaymentType
+    Tests for PaymentMethod
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_paymenttype(self):
-        url = reverse('payments_paymenttype_list')
+    def test_list_paymentmethod(self):
+        url = reverse('payments_paymentmethod_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_paymenttype(self):
-        url = reverse('payments_paymenttype_create')
+    def test_create_paymentmethod(self):
+        url = reverse('payments_paymentmethod_create')
         data = {
             "name": uuid.uuid4(),
+            "slug": "slug",
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_paymenttype(self):
-        paymenttype = create_paymenttype()
-        url = reverse('payments_paymenttype_detail', args=[paymenttype.slug, ])
+    def test_detail_paymentmethod(self):
+        paymentmethod = create_paymentmethod()
+        url = reverse('payments_paymentmethod_detail',
+                      args=[paymentmethod.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_paymenttype(self):
-        paymenttype = create_paymenttype()
+    def test_update_paymentmethod(self):
+        paymentmethod = create_paymentmethod()
         data = {
             "name": uuid.uuid4(),
+            "slug": "slug",
         }
-        url = reverse('payments_paymenttype_update', args=[paymenttype.slug, ])
+        url = reverse('payments_paymentmethod_update',
+                      args=[paymentmethod.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
@@ -99,6 +131,7 @@ class PaymentStatusViewTest(unittest.TestCase):
         url = reverse('payments_paymentstatus_create')
         data = {
             "name": uuid.uuid4(),
+            "slug": "slug",
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
@@ -113,7 +146,6 @@ class PaymentStatusViewTest(unittest.TestCase):
     def test_update_paymentstatus(self):
         paymentstatus = create_paymentstatus()
         data = {
-            "date": timezone.now,
             "name": uuid.uuid4(),
         }
         url = reverse('payments_paymentstatus_update',
@@ -122,83 +154,147 @@ class PaymentStatusViewTest(unittest.TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class PaymentViewTest(unittest.TestCase):
+class SalePaymentViewTest(unittest.TestCase):
     '''
-    Tests for Payment
+    Tests for SalePayment
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_payment(self):
-        url = reverse('payments_payment_list')
+    def test_list_salepayment(self):
+        url = reverse('payments_salepayment_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_payment(self):
-        url = reverse('payments_payment_create')
+    def test_create_salepayment(self):
+        url = reverse('payments_salepayment_create')
         data = {
+            "slug": "slug",
+            "date": timezone.now(),
             "amount": 100.00,
             "status": create_paymentstatus().pk,
-            "type": create_paymenttype().pk,
+            "method": create_paymentmethod().pk,
+            "ref": create_sellorder().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_payment(self):
-        payment = create_payment()
-        url = reverse('payments_payment_detail', args=[payment.slug, ])
+    def test_detail_salepayment(self):
+        salepayment = create_salepayment()
+        url = reverse('payments_salepayment_detail', args=[salepayment.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_payment(self):
-        payment = create_payment()
+    def test_update_salepayment(self):
+        salepayment = create_salepayment()
         data = {
+            "slug": "slug",
+            "date": timezone.now(),
             "amount": 100.00,
             "status": create_paymentstatus().pk,
-            "type": create_paymenttype().pk,
+            "method": create_paymentmethod().pk,
+            "ref": create_sellorder().pk,
         }
-        url = reverse('payments_payment_update', args=[payment.slug, ])
+        url = reverse('payments_salepayment_update', args=[salepayment.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)
 
 
-class OrderPaymentsViewTest(unittest.TestCase):
+class PurchasePaymentViewTest(unittest.TestCase):
     '''
-    Tests for OrderPayments
+    Tests for PurchasePayment
     '''
 
     def setUp(self):
         self.client = Client()
 
-    def test_list_orderpayments(self):
-        url = reverse('payments_orderpayments_list')
+    def test_list_purchasepayment(self):
+        url = reverse('payments_purchasepayment_list')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_create_orderpayments(self):
-        url = reverse('payments_orderpayments_create')
+    def test_create_purchasepayment(self):
+        url = reverse('payments_purchasepayment_create')
         data = {
-            "order": create_sellorder().pk,
-            "payment": create_payment().pk,
+            "amount": 100.00,
+            "status": create_paymentstatus().pk,
+            "method": create_purchaseorder().pk,
+            "ref": create_purchaseorder().pk,
+        }
+        print(url)
+
+        response = self.client.post(url, data=data)
+        print(response)
+        self.assertEqual(response.status_code, 302)
+
+    def test_detail_purchasepayment(self):
+        purchasepayment = create_purchasepayment()
+        url = reverse('payments_purchasepayment_detail',
+                      args=[purchasepayment.slug, ])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_purchasepayment(self):
+        purchasepayment = create_purchasepayment()
+        data = {
+            "slug": "slug",
+            "date": timezone.now(),
+            "amount": 100.00,
+            "status": create_paymentstatus().pk,
+            "method": create_paymentmethod().pk,
+            "ref": create_purchaseorder().pk,
+        }
+        url = reverse('payments_purchasepayment_update',
+                      args=[purchasepayment.slug, ])
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+
+class TrackingPaymentViewTest(unittest.TestCase):
+    '''
+    Tests for TrackingPayment
+    '''
+
+    def setUp(self):
+        self.client = Client()
+
+    def test_list_trackingpayment(self):
+        url = reverse('payments_trackingpayment_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_trackingpayment(self):
+        url = reverse('payments_trackingpayment_create')
+        data = {
+            "slug": "slug",
+            "date": timezone.now(),
+            "amount": 100.00,
+            "status": create_paymentstatus().pk,
+            "method": create_paymentmethod().pk,
+            "ref": create_tracking().pk,
         }
         response = self.client.post(url, data=data)
         self.assertEqual(response.status_code, 302)
 
-    def test_detail_orderpayments(self):
-        orderpayments = create_orderpayments()
-        url = reverse('payments_orderpayments_detail',
-                      args=[orderpayments.slug, ])
+    def test_detail_trackingpayment(self):
+        trackingpayment = create_trackingpayment()
+        url = reverse('payments_trackingpayment_detail',
+                      args=[trackingpayment.slug, ])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
-    def test_update_orderpayments(self):
-        orderpayments = create_orderpayments()
+    def test_update_trackingpayment(self):
+        trackingpayment = create_trackingpayment()
         data = {
-            "order": create_sellorder().pk,
-            "payment": create_payment().pk,
+            "slug": "slug",
+            "date": timezone.now(),
+            "amount": 100.00,
+            "status": create_paymentstatus().pk,
+            "method": create_paymentmethod().pk,
+            "ref": create_tracking().pk,
         }
-        url = reverse('payments_orderpayments_update',
-                      args=[orderpayments.slug, ])
+        url = reverse('payments_trackingpayment_update',
+                      args=[trackingpayment.slug, ])
         response = self.client.post(url, data)
         self.assertEqual(response.status_code, 302)

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-<p><a class="btn btn-default" href="{% url 'payments_payment_list' %}">Payment Listing</a></p>
+<p><a class="btn btn-default" href="{% url 'payments_salepayment_list' %}">SalePayment Listing</a></p>
 <table class="table">
 <tr><td>slug</td><td>{{ object.slug }}</td></tr>
 <tr><td>created_at</td><td>{{ object.created_at }}</td></tr>
@@ -9,6 +9,6 @@
 <tr><td>date</td><td>{{ object.date }}</td></tr>
 <tr><td>amount</td><td>{{ object.amount }}</td></tr>
 </table>
-<a class="btn btn-primary" href="{{object.get_update_url}}">Edit Payment</a>
+<a class="btn btn-primary" href="{{object.get_update_url}}">Edit SalePayment</a>
 
 {% endblock %}
