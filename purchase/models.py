@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model
-from django.contrib.auth import models as auth_models
+from django.contrib.auth.models import UserManager
 from django.db import models as models
 from django_extensions.db import fields as extension_fields
 from django.utils.translation import gettext_lazy as _
@@ -15,11 +15,14 @@ from phoneshop.models import SlugModel, SlugName, SlugOrderItem
 
 class Supplier(SlugName):
 
-    website = models.CharField(max_length=100)
+    website = models.CharField(max_length=100, blank=True)
+    user = models.ForeignKey(
+        get_user_model(), related_name='+', null=True, blank=True)
 
     class Meta:
         verbose_name_plural = _('Suppliers')
         verbose_name = _('Supplier')
+        unique_together = ['name', 'user']
 
     def get_package_name(self):
         return __package__
@@ -43,6 +46,7 @@ class PurchaseOrder(SlugModel):
         populate_from=['supplier', 'tracking'], blank=True)
 
     # Relationship Fields
+    buyer = models.ForeignKey(get_user_model(), related_name='+')
     supplier = models.ForeignKey(Supplier, related_name='+')
     status = models.ForeignKey(PurchaseOrderStatus, related_name='+')
     tracking = models.ForeignKey(Tracking, related_name='+', blank=True)
