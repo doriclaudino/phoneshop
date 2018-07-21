@@ -1,24 +1,24 @@
 from django.views.generic import DetailView, ListView, UpdateView, CreateView
-from .models import Seller, SellOrderStatus, SellOrder, SellOrderItem
-from .forms import SellerForm, SellOrderStatusForm, SellOrderForm, SellOrderItemForm
+from .models import Customer, SellOrderStatus, SellOrder, SellOrderItem
+from .forms import CustomerForm, SellOrderStatusForm, SellOrderForm, SellOrderItemForm
 
 
-class SellerListView(ListView):
-    model = Seller
+class CustomerListView(ListView):
+    model = Customer
 
 
-class SellerCreateView(CreateView):
-    model = Seller
-    form_class = SellerForm
+class CustomerCreateView(CreateView):
+    model = Customer
+    form_class = CustomerForm
 
 
-class SellerDetailView(DetailView):
-    model = Seller
+class CustomerDetailView(DetailView):
+    model = Customer
 
 
-class SellerUpdateView(UpdateView):
-    model = Seller
-    form_class = SellerForm
+class CustomerUpdateView(UpdateView):
+    model = Customer
+    form_class = CustomerForm
 
 
 class SellOrderStatusListView(ListView):

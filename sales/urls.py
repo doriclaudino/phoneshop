@@ -5,14 +5,15 @@ from . import views
 
 
 urlpatterns = (
-    # urls for Seller
-    url(r'^sales/seller/$', views.SellerListView.as_view(), name='sales_seller_list'),
-    url(r'^sales/seller/create/$', views.SellerCreateView.as_view(),
-        name='sales_seller_create'),
-    url(r'^sales/seller/detail/(?P<slug>\S+)/$',
-        views.SellerDetailView.as_view(), name='sales_seller_detail'),
-    url(r'^sales/seller/update/(?P<slug>\S+)/$',
-        views.SellerUpdateView.as_view(), name='sales_seller_update'),
+    # urls for Customer
+    url(r'^sales/customer/$', views.CustomerListView.as_view(),
+        name='sales_customer_list'),
+    url(r'^sales/customer/create/$', views.CustomerCreateView.as_view(),
+        name='sales_customer_create'),
+    url(r'^sales/customer/detail/(?P<slug>\S+)/$',
+        views.CustomerDetailView.as_view(), name='sales_customer_detail'),
+    url(r'^sales/customer/update/(?P<slug>\S+)/$',
+        views.CustomerUpdateView.as_view(), name='sales_customer_update'),
 )
 
 urlpatterns += (

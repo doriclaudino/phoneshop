@@ -1,11 +1,11 @@
 from django import forms
-from .models import Seller, SellOrderStatus, SellOrder, SellOrderItem
+from .models import Customer, SellOrderStatus, SellOrder, SellOrderItem
 
 
-class SellerForm(forms.ModelForm):
+class CustomerForm(forms.ModelForm):
     class Meta:
-        model = Seller
-        fields = ['name', 'website']
+        model = Customer
+        fields = ['name']
 
 
 class SellOrderStatusForm(forms.ModelForm):
@@ -24,5 +24,3 @@ class SellOrderItemForm(forms.ModelForm):
     class Meta:
         model = SellOrderItem
         fields = ['quantity', 'price', 'product', 'order']
-
-
